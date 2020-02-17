@@ -13,7 +13,7 @@ public:
   ~DNA();
   int getSum(int& size);
   double getMean(int sumNumber, int lineNumber);
-  double getVariance(int charCount, int lineNumber, double mean);
+  double getVariance(int charCount, double mean);
   double getStandardDeviation(double variance);
   int getRelativeProbability();
 private:

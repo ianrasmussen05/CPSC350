@@ -7,7 +7,7 @@ DNA::DNA()
 
 DNA::~DNA()
 {
-  cout << "Deleted object" << endl;
+  
 }
 
 int DNA::getSum(int& size)
@@ -22,14 +22,11 @@ double DNA::getMean(int sumNumber, int lineNumber)
   return total;
 }
 
-double DNA::getVariance(int charCount, int lineNumber, double mean)
+double DNA::getVariance(int charCount, double mean)
 {
-  int total = 0;
+  double total = 0;
 
-  for (int i = 0; i < lineNumber; ++i)
-  {
-    total += (charCount - mean) * (charCount - mean);
-  }
+  total = (charCount - mean) * (charCount - mean);
 
   return total;
 }
