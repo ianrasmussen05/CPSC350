@@ -1,3 +1,10 @@
+// Ian Rasmussen
+// 2317200
+// irasmussen@chapman.edu
+// CPSC 350-01
+// Assignment 1
+// DNA.cpp
+
 #include "DNA.h"
 
 DNA::DNA()
@@ -7,7 +14,7 @@ DNA::DNA()
 
 DNA::~DNA()
 {
-  
+
 }
 
 int DNA::getSum(int& size)

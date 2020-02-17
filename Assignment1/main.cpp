@@ -1,3 +1,10 @@
+// Ian Rasmussen
+// 2317200
+// irasmussen@chapman.edu
+// CPSC 350-01
+// Assignment 1
+// main.cpp
+
 #include "DNA.h"
 
 int main(int argc, char** argv)
@@ -85,22 +92,24 @@ int main(int argc, char** argv)
     mean = dna->getMean(totalSum, lineCounter); // calls onto the getMean function to calculate the mean
 
 
-    int dnaLineCounter = 0; // Use this as a line counter when iterating through the lineTotal string
+    int charInLine = 0; // Use this as a character counter when iterating through the lineTotal string
     for (int i = 0; i < lineTotal.size(); ++i)
     {
-      // if an 'o' shows up in the string, it calls onto variance and adds the value
+      // if an 'o' shows up in the string, it is the the end of the line and it calls onto variance and adds the value
       if (lineTotal[i] == 'o')
       {
-        variance += dna->getVariance(dnaLineCounter, mean);
-        dnaLineCounter = 0; // it is set back to zero to represent a new line in the string
+        variance += dna->getVariance(charInLine, mean);
+        charInLine = 0; // it is set back to zero to represent a new line in the string
       }
       else
       {
-        dnaLineCounter++;
+        charInLine++;
       }
     }
 
-    standardDeviation = dna->getStandardDeviation(variance);
+    variance /= (double)(lineCounter); // Divide the variance by how many lines are in the file
+
+    standardDeviation = dna->getStandardDeviation(variance); // calls onto standard deviation function
 
 
     cout << "Program Successful!" << endl;
