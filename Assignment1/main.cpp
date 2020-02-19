@@ -16,6 +16,30 @@ int main(int argc, char** argv)
   double variance = 0; // variable used to calculate the variance
   double standardDeviation = 0; // variable for standard deviation
 
+  double aProbability = 0;
+  double tProbability = 0;
+  double gProbability = 0;
+  double cProbability = 0;
+
+  double aaProbability = 0;
+  double atProbability = 0;
+  double agProbability = 0;
+  double acProbability = 0;
+  double ttProbability = 0;
+  double taProbability = 0;
+  double tgProbability = 0;
+  double tcProbability = 0;
+  double gaProbability = 0;
+  double gtProbability = 0;
+  double ggProbability = 0;
+  double gcProbability = 0;
+  double caProbability = 0;
+  double ctProbability = 0;
+  double cgProbability = 0;
+  double ccProbability = 0;
+
+
+
   // Checks to see if there was 2 parameters in the console. If not then it prompts
   // the user it was invalid and exits
   if (argc < 2)
@@ -47,6 +71,30 @@ int main(int argc, char** argv)
     int charCounter = 0; // counts the characters in each line inside the first upcoming for loop
     int lineCounter = 0; // counts the lines in the file
 
+    // These single character counter variables count how many times each nucleotide appears
+    int aCounter = 0;
+    int tCounter = 0;
+    int cCounter = 0;
+    int gCounter = 0;
+
+    // These double character counter variables count how many times each set of nuleotides appear
+    int aaCounter = 0;
+    int atCounter = 0;
+    int agCounter = 0;
+    int acCounter = 0;
+    int ttCounter = 0;
+    int taCounter = 0;
+    int tgCounter = 0;
+    int tcCounter = 0;
+    int gaCounter = 0;
+    int gtCounter = 0;
+    int ggCounter = 0;
+    int gcCounter = 0;
+    int caCounter = 0;
+    int ctCounter = 0;
+    int cgCounter = 0;
+    int ccCounter = 0;
+
 
     // Calls a function that gets the files line, then stores it into the line variable
     // stored above and keeps going until there are no more lines.
@@ -59,22 +107,102 @@ int main(int argc, char** argv)
 
         if (line[i] == 'A')
         {
-          charCounter++;
+          // These next if statements check to see if the following character in the string matches up
+          // with one of the valid characters. Checks every two iterations of 'i'.
+          if ((i % 2 == 0) && (line[i+1] == 'A'))
+          {
+            aaCounter++;
+          }
+          else if ((i % 2 == 0) && (line[i+1] == 'T'))
+          {
+            atCounter++;
+          }
+          else if ((i % 2 == 0) && (line[i+1] == 'G'))
+          {
+            agCounter++;
+          }
+          else if ((i % 2 == 0) && (line[i+1] == 'C'))
+          {
+            acCounter++;
+          }
+
+          aCounter++; // Adds one to the counter when 'A' shows up
+          charCounter++; // Adds one to the total number of characters
           lineTotal += "A"; // Adds an 'A' to the line total
         }
         else if (line[i] == 'T')
         {
-          charCounter++;
+          // These next if statements check to see if the following character in the string matches up
+          // with one of the valid characters. Checks every two iterations of 'i'.
+          if ((i % 2 == 0) && (line[i+1] == 'A'))
+          {
+            taCounter++;
+          }
+          else if ((i % 2 == 0) && (line[i+1] == 'T'))
+          {
+            ttCounter++;
+          }
+          else if ((i % 2 == 0) && (line[i+1] == 'G'))
+          {
+            tgCounter++;
+          }
+          else if ((i % 2 == 0) && (line[i+1] == 'C'))
+          {
+            tcCounter++;
+          }
+
+          tCounter++; // Adds one to the counter when 'T' shows up
+          charCounter++; // Adds one to the total number of characters
           lineTotal += "T"; // Adds an 'T' to the line total
         }
         else if (line[i] == 'G')
         {
-          charCounter++;
+          // These next if statements check to see if the following character in the string matches up
+          // with one of the valid characters. Checks every two iterations of 'i'.
+          if ((i % 2 == 0) && (line[i+1] == 'A'))
+          {
+            gaCounter++;
+          }
+          else if ((i % 2 == 0) && (line[i+1] == 'T'))
+          {
+            gtCounter++;
+          }
+          else if ((i % 2 == 0) && (line[i+1] == 'G'))
+          {
+            ggCounter++;
+          }
+          else if ((i % 2 == 0) && (line[i+1] == 'C'))
+          {
+            gcCounter++;
+          }
+
+          gCounter++; // Adds one to the counter when 'G' shows up
+          charCounter++; // Adds one to the total number of characters
           lineTotal += "G"; // Adds an 'G' to the line total
         }
         else if (line[i] == 'C')
         {
-          charCounter++;
+          // These next if statements check to see if the following character in the string matches up
+          // with one of the valid characters. Checks every two iterations of 'i'.
+          if ((i % 2 == 0) && (line[i+1] == 'A'))
+          {
+            caCounter++;
+          }
+          else if ((i % 2 == 0) && (line[i+1] == 'T'))
+          {
+            ctCounter++;
+          }
+          else if ((i % 2 == 0) && (line[i+1] == 'G'))
+          {
+            cgCounter++;
+          }
+          else if ((i % 2 == 0) && (line[i+1] == 'C'))
+          {
+            ccCounter++;
+          }
+
+          cCounter++; // Adds one to the counter when 'C' shows up
+          charCounter++; // Adds one to the total number of characters
           lineTotal += "C"; // Adds an 'C' to the line total
         }
         else
@@ -82,7 +210,7 @@ int main(int argc, char** argv)
           continue;
         }
       }
-      lineCounter++;
+      lineCounter++; // Adds one to the counter when the file moves onto the next file
 
       lineTotal += "o"; // I put an 'o' inside the string to separate each line of characters in each line
 
@@ -112,7 +240,31 @@ int main(int argc, char** argv)
     standardDeviation = dna->getStandardDeviation(variance); // calls onto standard deviation function
 
 
-    cout << "Program Successful!" << endl;
+    // The probability of each nucleotide calling onto the getRelativeProbability
+    aProbability = dna->getRelativeProbabilitySingle(aCounter, charCounter);
+    tProbability = dna->getRelativeProbabilitySingle(tCounter, charCounter);
+    gProbability = dna->getRelativeProbabilitySingle(gCounter, charCounter);
+    cProbability = dna->getRelativeProbabilitySingle(cCounter, charCounter);
+
+    // These next lines are the probability for each nucleotide pair. Calling onto the
+    // function that does the pair probability
+    aaProbability = dna->getRelativeProbabilityPair(aaCounter, charCounter);
+    atProbability = dna->getRelativeProbabilityPair(atCounter, charCounter);
+    agProbability = dna->getRelativeProbabilityPair(agCounter, charCounter);
+    acProbability = dna->getRelativeProbabilityPair(acCounter, charCounter);
+    ttProbability = dna->getRelativeProbabilityPair(ttCounter, charCounter);
+    taProbability = dna->getRelativeProbabilityPair(taCounter, charCounter);
+    tgProbability = dna->getRelativeProbabilityPair(tgCounter, charCounter);
+    tcProbability = dna->getRelativeProbabilityPair(tcCounter, charCounter);
+    gaProbability = dna->getRelativeProbabilityPair(gaCounter, charCounter);
+    gtProbability = dna->getRelativeProbabilityPair(gtCounter, charCounter);
+    ggProbability = dna->getRelativeProbabilityPair(ggCounter, charCounter);
+    gcProbability = dna->getRelativeProbabilityPair(gcCounter, charCounter);
+    caProbability = dna->getRelativeProbabilityPair(caCounter, charCounter);
+    ctProbability = dna->getRelativeProbabilityPair(ctCounter, charCounter);
+    cgProbability = dna->getRelativeProbabilityPair(cgCounter, charCounter);
+    ccProbability = dna->getRelativeProbabilityPair(ccCounter, charCounter);
+
 
     // Done with file so close it
     inFS.close();
@@ -139,6 +291,7 @@ int main(int argc, char** argv)
     outFS << "2317200" << endl;
     outFS << "irasmussen@chapman.edu" << endl;
     outFS << "CPSC 350-01" << endl;
+    outFS << "Assignment 1" << endl;
     outFS << endl;
 
 
@@ -147,6 +300,35 @@ int main(int argc, char** argv)
     outFS << "Mean: " << mean << endl;
     outFS << "Variance: " << variance << endl;
     outFS << "Standard Deviation: " << standardDeviation << endl;
+    outFS << endl;
+
+    // The relative probability of each nucleotide
+    outFS << "The relative probability of each nucleotide:" << endl;
+    outFS << "A: " << aProbability << endl;
+    outFS << "T: " << tProbability << endl;
+    outFS << "G: " << gProbability << endl;
+    outFS << "C: " << cProbability << endl;
+    outFS << endl;
+
+    // The relative probability of each nucleotide bigram
+    outFS << "The relative probability of each nucleotide bigram:" << endl;
+    outFS << "AA: " << aaProbability << endl;
+    outFS << "AT: " << atProbability << endl;
+    outFS << "AG: " << agProbability << endl;
+    outFS << "AC: " << acProbability << endl;
+    outFS << "TA: " << taProbability << endl;
+    outFS << "TT: " << ttProbability << endl;
+    outFS << "TG: " << tgProbability << endl;
+    outFS << "TC: " << tcProbability << endl;
+    outFS << "GA: " << gaProbability << endl;
+    outFS << "GT: " << gtProbability << endl;
+    outFS << "GG: " << ggProbability << endl;
+    outFS << "GC: " << gcProbability << endl;
+    outFS << "CA: " << caProbability << endl;
+    outFS << "CT: " << ctProbability << endl;
+    outFS << "CG: " << cgProbability << endl;
+    outFS << "CC: " << ccProbability << endl;
+
 
     outFS.close();
   }
