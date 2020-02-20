@@ -7,11 +7,13 @@
 
 #include "DNA.h"
 
+// Constructor
 DNA::DNA()
 {
 
 }
 
+// Destructor
 DNA::~DNA()
 {
   cout << "Program Successful!" << endl;
