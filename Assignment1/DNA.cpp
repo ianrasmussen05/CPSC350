@@ -75,3 +75,32 @@ double DNA::getRelativeProbabilityPair(int pair, int totalChars)
 
   return total;
 }
+
+// This is the box muller method that takes two random numbers from [0,1) and returns the total
+// for the equation. Uses the '&' operator to update the variable assigned to this function.
+double DNA::getBoxMuller(double &rand1, double &rand2)
+{
+  double c = 0.0;
+  double pi = 3.14159;
+
+  c = (sqrt(-2 * log(rand1))) * (cos(2 * pi * rand2));
+
+  return c;
+}
+
+// This is the gaussian method that takes the box muller total, mean, and standard deviation
+// as input and returns the product of the three. Makes sure there is no negative numbers.
+double DNA::getGaussian(double boxMuller, double mean, double standardDeviation)
+{
+  double d = 0.0;
+
+  d = (standardDeviation * boxMuller) + mean;
+
+  // This makes sure the value is always positive
+  if (d < 0)
+  {
+    d *= -1;
+  }
+
+  return d;
+}

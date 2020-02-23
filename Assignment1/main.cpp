@@ -271,7 +271,6 @@ int main(int argc, char** argv)
       cgProbability = dna->getRelativeProbabilityPair(cgCounter, charCounter);
       ccProbability = dna->getRelativeProbabilityPair(ccCounter, charCounter);
 
-
       // Done with file so close it
       inFS.close();
     }
@@ -334,15 +333,63 @@ int main(int argc, char** argv)
       outFS << "CT: " << ctProbability << endl;
       outFS << "CG: " << cgProbability << endl;
       outFS << "CC: " << ccProbability << endl;
+      outFS << endl;
+
+      // This is for the 1000 strings using gaussians distribution
+      outFS << "The 1000 strings using Gaussians Distribution:" << endl;
+
+      srand(time(NULL)); // To get less of a bias when seeding numbers I used this link:
+                          // https://stackoverflow.com/questions/9459035/why-does-rand-yield-the-same-sequence-of-numbers-on-every-run
+
+      for (int i = 0; i < 1000; ++i)
+      {
+        double rand1 = (double)rand() / ((double)RAND_MAX + 1); // Generates a random number from [0,1)
+        double rand2 = (double)rand() / ((double)RAND_MAX + 1); // Generates a random number from [0,1)
+
+        double c = dna->getBoxMuller(rand1, rand2); // Calls onto the function that takes two random number as input
+                                                    // gets the box muller equation and output. rand1 and rand2 update each
+                                                    // time it is called onto the method
+        double d = dna->getGaussian(c, mean, standardDeviation); // Calls onto the gaussian function to get the length of strings
+
+        // Using the gaussian distribution to see how many characters should be on the line
+        for (int j = 0; j < d; ++j)
+        {
+          double randomNumber = rand() % 100; // Gets a random number from 1-100 and will be used for picking a nucleotide
+
+          // Turn the 'A' probability to a percentage and checks to see if it is higher than the random number generated above
+          if ((aProbability * 100) > randomNumber)
+          {
+            outFS << "A";
+          }
+          // Turn the 'A' and 'T' probability to a percentage and checks to see if it is higher than the random number generated above
+          else if ((aProbability * 100) + (tProbability * 100) > randomNumber)
+          {
+            outFS << "T";
+          }
+          // Turn the 'A', 'T' and 'G' probability to a percentage and checks to see if it is higher than the random number generated above
+          else if ((aProbability * 100) + (tProbability * 100) + (gProbability * 100) > randomNumber)
+          {
+            outFS << "G";
+          }
+          // If the number generated above is higher than all of the nucleotide percentages, it prints a 'C'
+          else
+          {
+            outFS << "C";
+          }
+
+        }
+        outFS << endl;
+      }
 
 
       outFS.close();
     }
 
     // These next lines will allow the user to input another file if desired
-    cout << "Would you like to run another file (y/n): ";
+    cout << "Would you like to process another list (y/n): ";
     cin >> userInput;
 
+    // Makes the user input to all lower case for accurate input
     for (int i = 0; i < userInput.size(); ++i)
     {
       userInput[i] = tolower(userInput[i]);
@@ -352,6 +399,34 @@ int main(int argc, char** argv)
     {
       cout << "File name: ";
       cin >> fName;
+
+      // Sets all the variables created to 0, to allow another file to be read
+      totalSum = 0;
+      mean = 0;
+      variance = 0;
+      standardDeviation = 0;
+
+      aProbability = 0;
+      tProbability = 0;
+      gProbability = 0;
+      cProbability = 0;
+
+      aaProbability = 0;
+      ttProbability = 0;
+      ggProbability = 0;
+      ccProbability = 0;
+      atProbability = 0;
+      agProbability = 0;
+      acProbability = 0;
+      taProbability = 0;
+      tgProbability = 0;
+      tcProbability = 0;
+      gaProbability = 0;
+      gtProbability = 0;
+      gcProbability = 0;
+      caProbability = 0;
+      ctProbability = 0;
+      cgProbability = 0;
     }
     else
     {

@@ -9,6 +9,7 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
+#include <random>
 #include <cmath>
 
 using namespace std;
@@ -27,6 +28,8 @@ public:
   double getStandardDeviation(double variance);
   double getRelativeProbabilitySingle(int charNucleotide, int totalChars);
   double getRelativeProbabilityPair(int pair, int totalChars);
+  double getBoxMuller(double &rand1, double &rand2);
+  double getGaussian(double boxMuller, double mean, double standardDeviation);
 private:
   // Nothing to use for private variables
 };
