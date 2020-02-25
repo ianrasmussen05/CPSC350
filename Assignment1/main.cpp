@@ -357,7 +357,7 @@ int main(int argc, char** argv)
         // The d variable rounds down from the double to an integer and uses it as the length of the string on the line
         for (int j = 0; j < d; ++j)
         {
-          double randomNumber = rand() % 100; // Gets a random number from 1-100 and will be used for picking a nucleotide
+          double randomNumber = rand() % 100; // Generates a random number between 1-100 and will be used for picking a nucleotide
 
           // Turn the 'A' probability to a percentage and checks to see if it is higher than the random number generated above
           if ((aProbability * 100) >= randomNumber)
@@ -402,34 +402,6 @@ int main(int argc, char** argv)
     {
       cout << "File name: ";
       cin >> fName;
-
-      // Sets all the variables created to 0, to allow another file to be read
-      totalSum = 0;
-      mean = 0;
-      variance = 0;
-      standardDeviation = 0;
-
-      aProbability = 0;
-      tProbability = 0;
-      gProbability = 0;
-      cProbability = 0;
-
-      aaProbability = 0;
-      ttProbability = 0;
-      ggProbability = 0;
-      ccProbability = 0;
-      atProbability = 0;
-      agProbability = 0;
-      acProbability = 0;
-      taProbability = 0;
-      tgProbability = 0;
-      tcProbability = 0;
-      gaProbability = 0;
-      gtProbability = 0;
-      gcProbability = 0;
-      caProbability = 0;
-      ctProbability = 0;
-      cgProbability = 0;
     }
     else
     {

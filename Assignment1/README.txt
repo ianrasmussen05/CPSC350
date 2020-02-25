@@ -23,3 +23,4 @@ http://www.cplusplus.com/reference/fstream/fstream/
 https://www.youtube.com/watch?v=lzxWNtjii8U
 https://stackoverflow.com/questions/48716109/generating-a-random-number-between-0-1-c/48716227
 https://stackoverflow.com/questions/9459035/why-does-rand-yield-the-same-sequence-of-numbers-on-every-run
+Data Structures and Algorithms in C++ Textbook
