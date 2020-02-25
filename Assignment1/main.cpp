@@ -343,6 +343,8 @@ int main(int argc, char** argv)
 
       for (int i = 0; i < 1000; ++i)
       {
+        // Used this link to get the random integer from 0 to 1
+        // https://stackoverflow.com/questions/48716109/generating-a-random-number-between-0-1-c/48716227
         double rand1 = (double)rand() / ((double)RAND_MAX + 1); // Generates a random number from [0,1)
         double rand2 = (double)rand() / ((double)RAND_MAX + 1); // Generates a random number from [0,1)
 
@@ -352,22 +354,23 @@ int main(int argc, char** argv)
         double d = dna->getGaussian(c, mean, standardDeviation); // Calls onto the gaussian function to get the length of strings
 
         // Using the gaussian distribution to see how many characters should be on the line
+        // The d variable rounds down from the double to an integer and uses it as the length of the string on the line
         for (int j = 0; j < d; ++j)
         {
           double randomNumber = rand() % 100; // Gets a random number from 1-100 and will be used for picking a nucleotide
 
           // Turn the 'A' probability to a percentage and checks to see if it is higher than the random number generated above
-          if ((aProbability * 100) > randomNumber)
+          if ((aProbability * 100) >= randomNumber)
           {
             outFS << "A";
           }
           // Turn the 'A' and 'T' probability to a percentage and checks to see if it is higher than the random number generated above
-          else if ((aProbability * 100) + (tProbability * 100) > randomNumber)
+          else if (((aProbability * 100) + (tProbability * 100)) >= randomNumber)
           {
             outFS << "T";
           }
           // Turn the 'A', 'T' and 'G' probability to a percentage and checks to see if it is higher than the random number generated above
-          else if ((aProbability * 100) + (tProbability * 100) + (gProbability * 100) > randomNumber)
+          else if (((aProbability * 100) + (tProbability * 100) + (gProbability * 100)) >= randomNumber)
           {
             outFS << "G";
           }
@@ -378,11 +381,11 @@ int main(int argc, char** argv)
           }
 
         }
-        outFS << endl;
+        outFS << endl; // End of the line
       }
 
 
-      outFS.close();
+      outFS.close(); // End of function for output file, must close
     }
 
     // These next lines will allow the user to input another file if desired
@@ -430,7 +433,7 @@ int main(int argc, char** argv)
     }
     else
     {
-      break;
+      break; // Exits the program if user enters anything but 'y'
     }
   }
 

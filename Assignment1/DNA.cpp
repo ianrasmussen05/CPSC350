@@ -10,7 +10,7 @@
 // Constructor
 DNA::DNA()
 {
-
+  // Nothing to declare in the Constructor
 }
 
 // Destructor
