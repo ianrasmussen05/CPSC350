@@ -8,10 +8,7 @@ Source Files:
 DNA.h, DNA.cpp, main.cpp
 
 Challenges:
-Although the program runs and does what its supposed to do, a challenge that I came across when doing this
-assignment was trying to get the random variables to work with the box muller method as well as the
-gaussian distribution. I found out that I had to us the address operator '&' to update the random integer
-each time the for loop iterates.
+No compiler errors or run time errors when running the program. Has no problems as far as I know.
 
 Resources:
 I used the websites listed below to figure out the input and output of files. I also used websites
