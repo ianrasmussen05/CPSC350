@@ -16,6 +16,7 @@ to get the random number seeding as well as getting it to set random number betw
 understanding of how the seeding works. Used all the equations from the assignment document.
 
 Sources:
+I got help from Frank Entriken about how to get a better understanding of the gaussian distribution. 
 http://www.cplusplus.com/reference/fstream/fstream/
 https://www.youtube.com/watch?v=lzxWNtjii8U
 https://stackoverflow.com/questions/48716109/generating-a-random-number-between-0-1-c/48716227
