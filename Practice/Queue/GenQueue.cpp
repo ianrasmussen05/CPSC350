@@ -44,7 +44,6 @@ char GenQueue::remove()
 
 char GenQueue::peek()
 {
-
   return myArray[front];
 }
 
