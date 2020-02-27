@@ -1,26 +1,25 @@
 #include "GenStack.h"
 
-// Overloaded consturctor
-GenStack::GenStack(int maxSize)
-{
-  myArray = new char[maxSize];
-  mSize = maxSize;
-  top = 0;
-}
-
 // Default consturctor
 GenStack::GenStack()
 {
   myArray = new char[128];
   mSize = 128;
-  top = 0;
+  top = -1;
+}
+
+// Overloaded consturctor
+GenStack::GenStack(int maxSize)
+{
+  myArray = new char[maxSize];
+  mSize = maxSize;
+  top = -1;
 }
 
 // Destructor
 GenStack::~GenStack()
 {
   delete []myArray;
-  cout << "Object Deleted" << endl;
 }
 
 void GenStack::push(char data)

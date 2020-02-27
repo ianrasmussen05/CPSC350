@@ -4,33 +4,27 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-  GenQueue *myQueue = new GenQueue(14);
+  GenQueue *myQueue = new GenQueue(10);
 
-  myQueue->push('I');
-  myQueue->push('a');
-  myQueue->push('n');
-  myQueue->push(' ');
-  myQueue->push('R');
-  myQueue->push('a');
-  myQueue->push('s');
-  myQueue->push('m');
-  myQueue->push('u');
-  myQueue->push('s');
-  myQueue->push('s');
-  myQueue->push('e');
-  myQueue->push('n');
+  myQueue->insert('I');
+  myQueue->insert('a');
+  myQueue->insert('n');
 
-  for (int i = 0; i < myQueue->mSize; ++i)
+  cout << "Peek: " << myQueue->peek() << endl;
+  cout << "Remove: " << myQueue->remove() << endl;
+  cout << "Inserting b, d, p into the queue" << endl;
+
+  myQueue->insert('b');
+  myQueue->insert('d');
+  myQueue->insert('p');
+
+  cout << "Purging the queue" << endl;
+  while (!myQueue->isEmpty())
   {
-    cout << myQueue->myArray[i];
+    cout << "Remove: " << myQueue->remove() << endl;
   }
-  cout << endl;
-  cout << endl;
 
-  for (int i = 0; i < myQueue->mSize; ++i)
-  {
-    cout << "Pop: '" << myQueue->pop() <<"'" << endl;
-  }
+  delete myQueue;
 
   return 0;
 }

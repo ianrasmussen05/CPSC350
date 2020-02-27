@@ -10,17 +10,19 @@ class GenQueue
     ~GenQueue(); // Destructor
 
     // Functions
-    void push(char data); // insert
-    char pop(); // remove
+    void insert(char data); // insert
+    char remove(); // remove
 
     // Helper Functions
     bool isFull();
     bool isEmpty();
     char peek();
+    int getSize();
+    
     int mSize; // max size of myStack
-    int top; // variable to keep track of indices representing the
-            // top of our myStack
     int front; // variable to keep track of front of our myStack
+    int rear;
+    int numElements;
 
-    char *myArray;
+    char *myArray; // array to be used dynamically
 };
