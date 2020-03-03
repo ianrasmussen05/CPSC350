@@ -5,7 +5,7 @@
 // Assignment 2
 // main.cpp
 
-#include "GameOfLife.h"
+#include "InputLife.h"
 
 int main(int argc, char** argv)
 {

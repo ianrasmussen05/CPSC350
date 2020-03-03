@@ -3,18 +3,20 @@
 // irasmussen@chapman.edu
 // CPSC 350-01
 // Assignment 2
-// GameOfLife.cpp
+// InputLife.cpp
 
-#include "GameOfLife.h"
+#include "InputLife.h"
 
 GameOfLife::GameOfLife()
 {
-
+  row = 0;
+  column = 0;
+  density = 0.0;
 }
 
 GameOfLife::~GameOfLife()
 {
-  
+  delete myArray;
 }
 
 void GameOfLife::input(int &row, int &column, double &density)

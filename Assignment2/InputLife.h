@@ -3,7 +3,7 @@
 // irasmussen@chapman.edu
 // CPSC 350-01
 // Assignment 2
-// GameOfLife.h
+// InputLife.h
 
 #include <iostream>
 #include <fstream>
@@ -22,8 +22,10 @@ public:
   void input(int &row, int &column, double &density);
   void firstGeneration(int row, int column, double density);
 
-protected:
+  string **myArray;
 
 private:
-
+  int row;
+  int column;
+  double density;
 };
