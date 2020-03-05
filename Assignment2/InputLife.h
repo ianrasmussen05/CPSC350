@@ -13,19 +13,31 @@
 
 using namespace std;
 
-class GameOfLife
+class InputLife
 {
 public:
-  GameOfLife(); // Constructor
-  ~GameOfLife(); // Destructor
+  InputLife(); // Constructor
+  ~InputLife(); // Destructor
 
-  void input(int &row, int &column, double &density);
-  void firstGeneration(int row, int column, double density);
+  // Need this to be where the user inputs
+  string FileOrConsole();
+  void ReadFile();
 
-  string **myArray;
 
-private:
+  // Getters
+  int getRow();
+  int getColumn();
+  double getDensity();
+  string getFileName();
+
+  // Setters
+  void setRow(int row);
+  void setColumn(int column);
+  void setDensity(double density);
+  void setFileName(string fileName);
+
   int row;
   int column;
   double density;
+  string fileName;
 };

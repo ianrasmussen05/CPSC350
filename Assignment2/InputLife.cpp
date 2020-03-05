@@ -7,42 +7,76 @@
 
 #include "InputLife.h"
 
-GameOfLife::GameOfLife()
+ // Constructor
+InputLife::InputLife()
 {
   row = 0;
   column = 0;
   density = 0.0;
+  fileName = "\0";
 }
 
-GameOfLife::~GameOfLife()
+// Destructor
+InputLife::~InputLife()
 {
-  delete myArray;
+
 }
 
-void GameOfLife::input(int &row, int &column, double &density)
+string InputLife::FileOrConsole()
 {
-  cout << "Enter the number of rows: ";
-  cin >> row;
+  
 
-  cout << "Enter the number of columns: ";
-  cin >> column;
 
-  cout << "Enter the population density(0-1): ";
-  cin >> density;
-  while (density == 0.0 || density > 1)
-  {
-    cout << "Please enter a number above 0 and less than or equal to 1: ";
-    cin >> density;
-  }
+  return "\0";
 }
 
-void GameOfLife::firstGeneration(int row, int column, double density)
+void InputLife::ReadFile()
 {
-  for (int i = 0; i < row; ++i)
-  {
-    for (int j = 0; j < column; ++j)
-    {
 
-    }
-  }
+}
+
+
+
+
+// Getters for all variables
+int InputLife::getRow()
+{
+  return row;
+}
+
+int InputLife::getColumn()
+{
+  return column;
+}
+
+double InputLife::getDensity()
+{
+  return density;
+}
+
+string InputLife::getFileName()
+{
+  return fileName;
+}
+
+
+// Setters for all variables
+void InputLife::setRow(int row)
+{
+  this->row = row;
+}
+
+void InputLife::setColumn(int column)
+{
+  this->column = column;
+}
+
+void InputLife::setDensity(double density)
+{
+  this->density = density;
+}
+
+void InputLife::setFileName(string fileName)
+{
+  this->fileName = fileName;
 }

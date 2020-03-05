@@ -6,9 +6,13 @@
 // main.cpp
 
 #include "InputLife.h"
+#include "ClassicMode.h"
+#include "MirrorMode.h"
+#include "DoughnutMode.h"
 
 int main(int argc, char** argv)
 {
+  /*
   GameOfLife *life = new GameOfLife();
 
   string userInput = "\0";
@@ -58,6 +62,7 @@ int main(int argc, char** argv)
   }
 
   delete life;
+  */
 
   return 0;
 }
