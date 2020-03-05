@@ -15,14 +15,19 @@ using namespace std;
 
 class ClassicMode
 {
+private:
+  int row;
+  int column;
+  double density;
+
 public:
   ClassicMode(); // Constructor
   ClassicMode(int row, int column, double density); // Overloaded Constructor
   ~ClassicMode(); // Destructor
 
 
-private:
-  int row;
-  int column;
-  double density;
+  // Generations
+  char **past;
+  char **present;
+  char **future;
 };

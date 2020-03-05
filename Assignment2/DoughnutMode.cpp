@@ -6,6 +6,7 @@
 // DoughnutMode.h
 
 #include "DoughnutMode.h"
+#include "InputLife.h"
 
 // Constructor
 DoughnutMode::DoughnutMode()
@@ -26,5 +27,7 @@ DoughnutMode::DoughnutMode(int row, int column, double density)
 // Destructor
 DoughnutMode::~DoughnutMode()
 {
-
+  delete past;
+  delete present;
+  delete future;
 }

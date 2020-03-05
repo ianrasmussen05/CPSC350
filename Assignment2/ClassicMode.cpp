@@ -6,6 +6,7 @@
 // ClassicMode.cpp
 
 #include "ClassicMode.h"
+#include "InputLife.h"
 
 // Constructor
 ClassicMode::ClassicMode()
@@ -26,5 +27,7 @@ ClassicMode::ClassicMode(int row, int column, double density)
 // Destructor
 ClassicMode::~ClassicMode()
 {
-
+  delete past;
+  delete present;
+  delete future;
 }

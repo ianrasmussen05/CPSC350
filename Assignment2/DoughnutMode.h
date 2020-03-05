@@ -15,14 +15,19 @@ using namespace std;
 
 class DoughnutMode
 {
+private:
+  int row;
+  int column;
+  double density;
+
 public:
   DoughnutMode();
   DoughnutMode(int row, int column, double density);
   ~DoughnutMode();
 
 
-private:
-  int row;
-  int column;
-  double density;
+  // Generations
+  char **past;
+  char **present;
+  char **future;
 };

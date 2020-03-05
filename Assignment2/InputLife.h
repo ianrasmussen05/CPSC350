@@ -20,9 +20,11 @@ public:
   ~InputLife(); // Destructor
 
   // Need this to be where the user inputs
-  string FileOrConsole();
+  void FileOrConsole();
   void ReadFile();
 
+  // This is making sure the inputs are valid
+  void validInputs();
 
   // Getters
   int getRow();
@@ -36,6 +38,7 @@ public:
   void setDensity(double density);
   void setFileName(string fileName);
 
+  // All the variables used for input
   int row;
   int column;
   double density;

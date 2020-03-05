@@ -15,14 +15,20 @@ using namespace std;
 
 class MirrorMode
 {
+private:
+  int row;
+  int column;
+  double density;
+
 public:
   MirrorMode();
   MirrorMode(int row, int column, double density);
   ~MirrorMode();
 
 
-private:
-  int row;
-  int column;
-  double density;
+  // Generations
+  // Generations
+  char **past;
+  char **present;
+  char **future;
 };

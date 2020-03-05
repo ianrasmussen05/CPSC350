@@ -6,6 +6,7 @@
 // MirrorMode.cpp
 
 #include "MirrorMode.h"
+#include "InputLife.h"
 
 // Constructor
 MirrorMode::MirrorMode()
@@ -26,5 +27,7 @@ MirrorMode::MirrorMode(int row, int column, double density)
 // Destructor
 MirrorMode::~MirrorMode()
 {
-
+  delete past;
+  delete present;
+  delete future;
 }
