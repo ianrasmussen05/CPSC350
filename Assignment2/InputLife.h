@@ -15,13 +15,20 @@ using namespace std;
 
 class InputLife
 {
+private:
+  // The basic variables needed for input
+  int row;
+  int column;
+  double density;
+  string fileName;
+
 public:
   InputLife(); // Constructor
   ~InputLife(); // Destructor
 
   // Need this to be where the user inputs
   void FileOrConsole();
-  void ReadFile();
+  void CheckFile();
 
   // This is making sure the inputs are valid
   void validInputs();
@@ -37,10 +44,4 @@ public:
   void setColumn(int column);
   void setDensity(double density);
   void setFileName(string fileName);
-
-  // All the variables used for input
-  int row;
-  int column;
-  double density;
-  string fileName;
 };

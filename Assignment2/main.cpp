@@ -16,11 +16,11 @@ int main(int argc, char** argv)
 
   gol->FileOrConsole();
 
-  cout << gol->getRow() << endl;
-  cout << gol->getColumn() << endl;
-  cout << gol->getDensity() << endl;
+  //cout << gol->getRow() << endl;
+  //cout << gol->getColumn() << endl;
+  //cout << gol->getDensity() << endl;
 
-
+  cout << gol ->getFileName() << endl;
 
   delete gol;
 

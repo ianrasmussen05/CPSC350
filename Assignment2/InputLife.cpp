@@ -37,7 +37,7 @@ void InputLife::FileOrConsole()
   {
     if (userInput == "file")
     {
-      ReadFile();
+      CheckFile();
 
       break;
     }
@@ -55,30 +55,58 @@ void InputLife::FileOrConsole()
   }
 }
 
-// Reads from a file, checking the rows and columns in the file
-void InputLife::ReadFile()
+// Reads from a file, checking if the rows and columns in the file are valid numbers
+void InputLife::CheckFile()
 {
   string userFile = "\0";
-  cout << "Enter the name of the file: ";
-  cin >> userFile;
 
-  setFileName(userFile);
-
-  ifstream inFS;
-
-  inFS.open(fileName);
-
-  if (!inFS.is_open())
+  while (true)
   {
-    cout << "Could not open file " << fileName << "." << endl;
+    string line;
+
+    cout << "Enter the name of the file: ";
+    cin >> userFile;
+
+    ifstream inFS;
+
+    inFS.open(userFile);
+
+    if (!inFS.is_open())
+    {
+      cout << "Could not open file " << userFile << "." << endl;
+    }
+    else
+    {
+      int rowCounter = 0;
+      int columnCounter = 0;
+
+      while (getline(inFS, line))
+      {
+        for (int i = 1; i < line.size(); ++i)
+        {
+          rowCounter++;
+        }
+        columnCounter++;
+      }
+
+      rowCounter /= columnCounter;
+
+      if (rowCounter < 3 || rowCounter > 100)
+      {
+        cout << "Invalid input. Please enter another file.";
+      }
+      else if (columnCounter < 3 || columnCounter > 100)
+      {
+        cout << "Invalid input. Please enter another file.";
+      }
+      else
+      {
+        setFileName(userFile);
+        break;
+      }
+    }
+    inFS.close();
   }
-  else
-  {
-
-  }
-
-
-  inFS.close();
 }
 
 void InputLife::validInputs()

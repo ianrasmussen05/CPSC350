@@ -25,10 +25,10 @@ public:
   MirrorMode(int row, int column, double density);
   ~MirrorMode();
 
+  void generateGrid();
+  void countNeighbors();
+
 
   // Generations
-  // Generations
-  char **past;
-  char **present;
-  char **future;
+  char **generation;
 };

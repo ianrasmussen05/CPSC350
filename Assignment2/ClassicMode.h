@@ -25,9 +25,11 @@ public:
   ClassicMode(int row, int column, double density); // Overloaded Constructor
   ~ClassicMode(); // Destructor
 
+  void generateGrid();
+  void countNeighbors();
+
+
 
   // Generations
-  char **past;
-  char **present;
-  char **future;
+  char **generation;
 };

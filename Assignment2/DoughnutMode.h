@@ -25,9 +25,10 @@ public:
   DoughnutMode(int row, int column, double density);
   ~DoughnutMode();
 
+  void generateGrid();
+  void countNeighbors();
+
 
   // Generations
-  char **past;
-  char **present;
-  char **future;
+  char **generation;
 };

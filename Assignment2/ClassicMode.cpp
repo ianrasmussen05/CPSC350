@@ -27,7 +27,60 @@ ClassicMode::ClassicMode(int row, int column, double density)
 // Destructor
 ClassicMode::~ClassicMode()
 {
-  delete past;
-  delete present;
-  delete future;
+  delete generation;
+}
+
+void ClassicMode::generateGrid()
+{
+
+}
+
+void ClassicMode::countNeighbors()
+{
+  int counter = 0;
+
+  for (int i = 0; i < column; ++i)
+  {
+    for (int j = 0; j < row; ++j)
+    {
+      if (generation[i-1][j] == 'X' && i != 0) // Checks left neighbor
+      {
+        counter++;
+      }
+      if (generation[i+1][j] == 'X' && (i != column - 1)) // Checks the right neighbor
+      {
+        counter++;
+      }
+      if (generation[i][j-1] == 'X' && j != 0) // Checks the neighbor above
+      {
+        counter++;
+      }
+      if (generation[i][j+1] == 'X' && (j != row + 1)) // Checks the bottom neighbor
+      {
+        counter++;
+      }
+
+      // All the diagnal spots in the generation
+      if (generation[i-1][j-1] == 'X' && (i != 0 && j != 0)) // Checks the top left neighbor
+      {
+        counter++;
+      }
+      if (generation[i+1][j-1] == 'X' && (i != column - 1 && j != 0)) // Checks the top right neighbor
+      {
+        counter++;
+      }
+      if (generation[i-1][j+1] == 'X' && (i != 0 && j != row - 1)) // Checks the bottom left neighbor
+      {
+        counter++;
+      }
+      if (generation[i+1][j+1] == 'X' && (i != column - 1 && j != row - 1)) // Checks the bottom right neighbor
+      {
+        counter++;
+      }
+
+      // implement the future values for next generation
+
+
+    }
+  }
 }
