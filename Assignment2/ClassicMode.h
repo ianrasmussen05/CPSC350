@@ -32,4 +32,5 @@ public:
 
   // Generations
   char **generation;
+  char **nextGeneration;
 };

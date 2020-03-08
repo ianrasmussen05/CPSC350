@@ -28,6 +28,7 @@ MirrorMode::MirrorMode(int row, int column, double density)
 MirrorMode::~MirrorMode()
 {
   delete generation;
+  delete nextGeneration;
 }
 
 void MirrorMode::generateGrid()
@@ -294,6 +295,18 @@ void MirrorMode::countNeighbors()
 
 
       // Do something with the counter here
+      if (counter <= 1 || counter >= 4)
+      {
+        nextGeneration[i][j] = '-';
+      }
+      else if (counter == 2)
+      {
+        nextGeneration[i][j] = generation[i][j];
+      }
+      else if (counter == 3)
+      {
+        nextGeneration[i][j] = 'X';
+      }
 
       counter = 0;
     }

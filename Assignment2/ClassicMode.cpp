@@ -28,6 +28,7 @@ ClassicMode::ClassicMode(int row, int column, double density)
 ClassicMode::~ClassicMode()
 {
   delete generation;
+  delete nextGeneration;
 }
 
 void ClassicMode::generateGrid()
@@ -79,8 +80,20 @@ void ClassicMode::countNeighbors()
       }
 
       // implement the future values for next generation
+      if (counter <= 1 || counter >= 4)
+      {
+        nextGeneration[i][j] = '-';
+      }
+      else if (counter == 2)
+      {
+        nextGeneration[i][j] = generation[i][j];
+      }
+      else if (counter == 3)
+      {
+        nextGeneration[i][j] = 'X';
+      }
 
-
+      counter = 0;
     }
   }
 }
