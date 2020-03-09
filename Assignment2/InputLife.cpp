@@ -91,6 +91,8 @@ void InputLife::CheckFile()
 
       rowCounter /= columnCounter;
 
+      cout << rowCounter << " " << columnCounter << endl;
+
       if (rowCounter < 3 || rowCounter > 100)
       {
         cout << "Invalid input. Please enter another file.";

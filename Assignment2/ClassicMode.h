@@ -22,13 +22,13 @@ private:
 
 public:
   ClassicMode(); // Constructor
-  ClassicMode(int row, int column, double density); // Overloaded Constructor
+  ClassicMode(int row, int column); // Overloaded Constructor
   ~ClassicMode(); // Destructor
 
   void generateGrid();
   void countNeighbors();
 
-
+  bool isEmpty();
 
   // Generations
   char **generation;

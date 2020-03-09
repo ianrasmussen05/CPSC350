@@ -22,11 +22,13 @@ private:
 
 public:
   DoughnutMode();
-  DoughnutMode(int row, int column, double density);
+  DoughnutMode(int row, int column);
   ~DoughnutMode();
 
   void generateGrid();
   void countNeighbors();
+
+  bool isEmpty();
 
 
   // Generations

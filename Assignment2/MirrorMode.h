@@ -22,11 +22,13 @@ private:
 
 public:
   MirrorMode();
-  MirrorMode(int row, int column, double density);
+  MirrorMode(int row, int column);
   ~MirrorMode();
 
   void generateGrid();
   void countNeighbors();
+
+  bool isEmpty();
 
 
   // Generations

@@ -12,17 +12,92 @@
 
 int main(int argc, char** argv)
 {
-  InputLife *gol = new InputLife();
+  string userInput = "\0";
 
-  gol->FileOrConsole();
+  while (true)
+  {
+    InputLife *inputClass = new InputLife();
 
-  //cout << gol->getRow() << endl;
-  //cout << gol->getColumn() << endl;
-  //cout << gol->getDensity() << endl;
+    cout << "What mode would you like to use ('Classic', 'Mirror', 'Doughnut'): ";
+    cin >> userInput;
 
-  cout << gol ->getFileName() << endl;
+    for (int i = 0; i < userInput.size(); ++i)
+    {
+      userInput[i] = tolower(userInput[i]);
+    }
 
-  delete gol;
+
+
+    if (userInput == "classic")
+    {
+      cout << "Welcome to Classic Mode!" << endl;
+
+      inputClass->FileOrConsole();
+
+      int currRow = inputClass->getRow();
+      int currColumn = inputClass->getColumn();
+
+      ClassicMode *classic = new ClassicMode(currRow, currColumn);
+
+
+      delete classic;
+    }
+    else if (userInput == "mirror")
+    {
+      cout << "Welcome to Mirror Mode!" << endl;
+
+      inputClass->FileOrConsole();
+
+      int currRow = inputClass->getRow();
+      int currColumn = inputClass->getColumn();
+
+      MirrorMode *mirror = new MirrorMode(currRow, currColumn);
+
+
+      delete mirror;
+    }
+    else if (userInput == "doughnut")
+    {
+      cout << "Welcome to Doughnut Mode!" << endl;
+
+      inputClass->FileOrConsole();
+
+      int currRow = inputClass->getRow();
+      int currColumn = inputClass->getColumn();
+
+      DoughnutMode *doughnut = new DoughnutMode(currRow, currColumn);
+
+
+      delete doughnut;
+    }
+    else
+    {
+      cout << "Invalid input... Please choose the correct mode." << endl;
+
+    }
+
+
+
+    cout << "Type 'exit' to exit program or 'continue' to run the program again." << endl;
+    cin >> userInput;
+
+    for (int i = 0; i < userInput.size(); ++i)
+    {
+      userInput[i] = tolower(userInput[i]);
+    }
+
+    if (userInput == "exit")
+    {
+      break;
+    }
+    else
+    {
+      continue;
+    }
+
+    userInput = "\0";
+    delete inputClass;
+  }
 
   return 0;
 }

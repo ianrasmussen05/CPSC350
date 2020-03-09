@@ -17,11 +17,10 @@ DoughnutMode::DoughnutMode()
 }
 
 // Overloaded Constructor
-DoughnutMode::DoughnutMode(int row, int column, double density)
+DoughnutMode::DoughnutMode(int row, int column)
 {
   this->row = row;
   this->column = column;
-  this->density = density;
 }
 
 // Destructor
@@ -44,6 +43,8 @@ void DoughnutMode::countNeighbors()
   {
     for (int j = 0; j < row; ++j)
     {
+      counter = 0; // Resets the counter each iteration
+
       char topLeftCorner = generation[0][0];
       char topRightCorner = generation[column-1][0];
       char bottomLeftCorner = generation[0][row-1];
@@ -409,8 +410,22 @@ void DoughnutMode::countNeighbors()
       {
         nextGeneration[i][j] = 'X';
       }
-
-      counter = 0;
     }
   }
+}
+
+bool DoughnutMode::isEmpty()
+{
+  for (int i = 0; i < column; ++i)
+  {
+    for (int j = 0; j < row; ++j)
+    {
+      if (nextGeneration[i][j] == 'X')
+      {
+        return false;
+      }
+    }
+  }
+
+  return true;
 }

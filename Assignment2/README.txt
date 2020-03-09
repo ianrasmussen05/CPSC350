@@ -12,3 +12,6 @@ Challenges:
 
 
 Resources:
+I worked with Alberto Ng with some of the grid generations.
+
+Used this link to find the remainder of the densiity of cells: https://www.geeksforgeeks.org/remainder-in-c/ 
