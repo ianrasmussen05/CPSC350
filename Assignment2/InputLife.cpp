@@ -82,7 +82,7 @@ void InputLife::CheckFile()
 
       while (getline(inFS, line))
       {
-        for (int i = 1; i < line.size(); ++i)
+        for (int i = 0; i < line.size()-1; ++i)
         {
           rowCounter++;
         }
@@ -90,8 +90,7 @@ void InputLife::CheckFile()
       }
 
       rowCounter /= columnCounter;
-
-      cout << rowCounter << " " << columnCounter << endl;
+      
 
       if (rowCounter < 3 || rowCounter > 100)
       {

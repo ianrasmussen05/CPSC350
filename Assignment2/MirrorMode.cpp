@@ -11,9 +11,26 @@
 // Constructor
 MirrorMode::MirrorMode()
 {
-  row = 0;
-  column = 0;
-  density = 0;
+  row = 5;
+  column = 5;
+
+  generation = new char *[column];
+  nextGeneration = new char *[column];
+
+  for (int i = 0; i < column; ++i)
+  {
+    generation[i] = new char[row];
+    nextGeneration[i] = new char[row];
+  }
+
+  for (int i = 0; i < column; ++i)
+  {
+    for (int j = 0; j < row; ++j)
+    {
+      generation[i][j] = '-';
+      nextGeneration[i][j] = '-';
+    }
+  }
 }
 
 // Overloaded Constructor
@@ -21,6 +38,49 @@ MirrorMode::MirrorMode(int row, int column)
 {
   this->row = row;
   this->column = column;
+
+  generation = new char *[column];
+  nextGeneration = new char *[column];
+
+  for (int i = 0; i < column; ++i)
+  {
+    generation[i] = new char[row];
+    nextGeneration[i] = new char[row];
+  }
+
+  for (int i = 0; i < column; ++i)
+  {
+    for (int j = 0; j < row; ++j)
+    {
+      generation[i][j] = '-';
+      nextGeneration[i][j] = '-';
+    }
+  }
+}
+
+MirrorMode::MirrorMode(int row, int column, double density)
+{
+  this->row = row;
+  this->column = column;
+  this->density = density;
+
+  generation = new char *[column];
+  nextGeneration = new char *[column];
+
+  for (int i = 0; i < column; ++i)
+  {
+    generation[i] = new char[row];
+    nextGeneration[i] = new char[row];
+  }
+
+  for (int i = 0; i < column; ++i)
+  {
+    for (int j = 0; j < row; ++j)
+    {
+      generation[i][j] = '-';
+      nextGeneration[i][j] = '-';
+    }
+  }
 }
 
 // Destructor
@@ -30,12 +90,60 @@ MirrorMode::~MirrorMode()
   delete nextGeneration;
 }
 
-void MirrorMode::generateGrid()
+void MirrorMode::generateGridRandom()
 {
+  double totalCells = 0;
+  double densityOfGrid = 0;
+  int densityCount = 0;
 
+  InputLife *inputGrid = new InputLife();
+
+  inputGrid->getRow();
+  inputGrid->getColumn();
+  inputGrid->getDensity();
+
+  totalCells = column * row;
+  densityOfGrid = density * (double)totalCells;
+
+  densityCount = (int)densityOfGrid;
+
+  while (densityCount != 0)
+  {
+    for (int i = 0; i < column; ++i)
+    {
+      for (int j = 0; j < row; ++j)
+      {
+        if (densityCount == 0)
+        {
+          break;
+        }
+
+        double randNum = rand() % 100;
+
+        if (randNum <= density * 100)
+        {
+          generation[i][j] = 'X';
+          densityCount--;
+        }
+      }
+    }
+  }
+
+  printGrid(generation, row, column);
+
+
+  if (isEmpty(generation, row, column))
+  {
+    cout << "The file is empty." << endl;
+    exit(0);
+  }
+
+  countNeighbors(generation, row, column);
+
+  delete inputGrid;
 }
 
-void MirrorMode::countNeighbors()
+void MirrorMode::countNeighbors(char **grid, int row, int column)
 {
   int counter = 0;
 
@@ -47,262 +155,184 @@ void MirrorMode::countNeighbors()
     {
       counter = 0; // Resets the counter each iteration
 
-      char topLeftCorner = generation[0][0];
-      char topRightCorner = generation[column-1][0];
-      char bottomLeftCorner = generation[0][row-1];
-      char bottomRightCorner = generation[column-1][row-1];
+      char topLeftCorner = grid[0][0];
+      char topRightCorner = grid[column-1][0];
+      char bottomLeftCorner = grid[0][row-1];
+      char bottomRightCorner = grid[column-1][row-1];
 
       // The next if statements check to see if its a corner
       // Checks to see if it is at the top left corner
-      if (generation[i][j] == topLeftCorner)
+      if (grid[i][j] == topLeftCorner)
       {
         if (topLeftCorner == 'X')
         {
           counter += 3;
         }
-        if (generation[1][0] == 'X') // Checks the right spot from the left corner
+        if (grid[1][0] == 'X') // Checks the right spot from the left corner
         {
-          counter += 2;
+          counter++;
         }
-        if (generation[0][1] == 'X') // Checks the bottom spot from the left corner
-        {
-          counter += 2;
-        }
-        if (generation[1][1] == 'X') // Checks the bottom right spot from left corner
+        if (grid[0][1] == 'X') // Checks the bottom spot from the left corner
         {
           counter++;
         }
       }
       // Checks to see if it is at the top right corner
-      if (generation[i][j] == topRightCorner)
+      else if (grid[i][j] == topRightCorner)
       {
         if (topRightCorner == 'X')
         {
           counter += 3;
         }
-        if (generation[column-2][0] == 'X') // Checks the left of the right corner
+        if (grid[column-2][0] == 'X') // Checks the left of the right corner
         {
-          counter += 2;
+          counter++;
         }
-        if (generation[column-1][1] == 'X') // Chekcs the bottom of the right corner
-        {
-          counter += 2;
-        }
-        if (generation[column-2][1]) // Checks the bottom left spot of the right corner
+        if (grid[column-1][1] == 'X') // Chekcs the bottom of the right corner
         {
           counter++;
         }
       }
       // Checks to see if it is at the bottom left corner
-      if (generation[i][j] == bottomLeftCorner)
+      else if (grid[i][j] == bottomLeftCorner)
       {
         if (bottomLeftCorner == 'X')
         {
           counter += 3;
         }
-        if (generation[1][row-1] == 'X') // Checks the right spot from the bottom left corner
+        if (grid[1][row-1] == 'X') // Checks the right spot from the bottom left corner
         {
-          counter += 2;
+          counter++;
         }
-        if (generation[0][row-2] == 'X')
-        {
-          counter += 2;
-        }
-        if (generation[1][row-2] == 'X')
+        if (grid[0][row-2] == 'X') // Checks the top spot
         {
           counter++;
         }
       }
       // Checks to see if it is at the bottom right corner
-      if (generation[i][j] == bottomRightCorner)
+      else if (grid[i][j] == bottomRightCorner)
       {
         if (bottomRightCorner == 'X')
         {
           counter += 3;
         }
-        if (generation[column-1][row-2] == 'X') // Checks the right of the spot
+        if (grid[column-1][row-2] == 'X') // Checks the top of the spot
         {
-          counter += 2;
+          counter++;
         }
-        if (generation[column-2][row-1] == 'X') // Checks the top of the spot
-        {
-          counter += 2;
-        }
-        if (generation[column-2][row-2] == 'X') // Checks the top left of the spot
+        if (grid[column-2][row-1] == 'X') // Checks the left of the spot
         {
           counter++;
         }
       }
-
-      char leftBorder = generation[0][j];
-      char topBorder = generation[i][0];
-      char rightBorder = generation[column-1][j];
-      char bottomBorder = generation[i][row-1];
 
       // Checking the left border of the grid
-      if ((generation[i][j] == leftBorder) && (leftBorder != (topLeftCorner || bottomLeftCorner)))
+      if (i == 0 && (j != 0 || j != row-1))
       {
-        if (generation[i][j] == 'X') // Checks to see if value is X to add from the mirror rules
+        if (grid[i][j] == 'X') // Checks to see if value is X to add from the mirror rules
         {
           counter++;
         }
-        if (generation[i][j-1] == 'X') // Checks the top spot
-        {
-          counter += 2;
-        }
-        if (generation[i][j+1] == 'X') // Checks the bottom spot
-        {
-          counter += 2;
-        }
-        if (generation[i+1][j] == 'X') // Checks the right spot
+        if (grid[i][j-1] == 'X') // Checks the top spot
         {
           counter++;
         }
-        if (generation[i+1][j-1] == 'X') // Checks top right spot
+        if (grid[i][j+1] == 'X') // Checks the bottom spot
         {
           counter++;
         }
-        if (generation[i+1][j+1] == 'X') // Checks bottom right spot
+      }
+      else if (j == 0 && (i != 0 && i != column-1))  // Checking the top border of the grid
+      {
+        if (grid[i][0] == 'X') // Checks to see if spot has X and adds to counter because of mirror
+        {
+          counter++;
+        }
+        if (grid[i-1][0] == 'X') // Checks the left spot
+        {
+          counter++;
+        }
+        if (grid[i+1][0] == 'X') // Checks the right spot
+        {
+          counter++;
+        }
+      }
+      else if (i == column-1 && (j != row-1 && j != 0))   // Checking the right border of the grid
+      {
+        if (grid[i][j] == 'X') // Checks to see if spot has X and adds to counter because of mirror mode
+        {
+          counter++;
+        }
+        if (grid[column-1][j-1] == 'X') // Checks the top spot
+        {
+          counter++;
+        }
+        if (grid[column-1][j+1] == 'X') // Checks the bottom spot
+        {
+          counter++;
+        }
+      }
+      else if (j == row-1 && (i != 0 && i != column-1)) // Checking the bottom border of the grid
+      {
+        if (grid[i][j] == 'X') // Checks to see if spot has X and adds to counter because of mirror mode
+        {
+          counter++;
+        }
+        if (grid[i-1][row-1] == 'X') // Checks the left spot
+        {
+          counter++;
+        }
+        if (grid[i+1][row-1] == 'X') // Checks the right spot
         {
           counter++;
         }
       }
 
-      // Checking the top border of the grid
-      if ((generation[i][j] == topBorder) && (topBorder != (topLeftCorner || topRightCorner)))
+      // Checks the normal neighbors
+      if (i != 0 && grid[i-1][j] == 'X') // Checks the left neighbor
       {
-        if (generation[i][j] == 'X') // Checks to see if spot has X and adds to counter because of mirror
-        {
-          counter++;
-        }
-        if (generation[i-1][j] == 'X') // Checks the left spot
-        {
-          counter += 2;
-        }
-        if (generation[i+1][j] == 'X') // Checks the right spot
-        {
-          counter += 2;
-        }
-        if (generation[i][j+1] == 'X') // Checks the bottom spot
-        {
-          counter++;
-        }
-        if (generation[i-1][j+1] == 'X') // Checks the bottom left spot
-        {
-          counter++;
-        }
-        if (generation[i+1][j+1] == 'X') // Checks teh bottom right spot
-        {
-          counter++;
-        }
+        counter++;
+      }
+      if (i != column-1 && grid[i+1][j] == 'X') // Checks the right neighbor
+      {
+        counter++;
+      }
+      if (j != 0 && grid[i][j-1] == 'X') // Checks the top neighbor
+      {
+        counter++;
+      }
+      if (j != row-1 && grid[i][j+1] == 'X') // Checks the bottom neighbor
+      {
+        counter++;
       }
 
-      // Checking the right border of the grid
-      if ((generation[i][j] == rightBorder) && (rightBorder != (topRightCorner || bottomRightCorner)))
+      // Checks the diagnal neighbors
+      if ((i != 0 && j != 0) && grid[i-1][j-1] == 'X') // Checks the top left neighbor
       {
-        if (generation[i][j] == 'X') // Checks to see if spot has X and adds to counter because of mirror mode
-        {
-          counter++;
-        }
-        if (generation[column-1][j-1] == 'X') // Checks the top spot
-        {
-          counter += 2;
-        }
-        if (generation[column-1][j+1] == 'X') // Checks the bottom spot
-        {
-          counter += 2;
-        }
-        if (generation[column-2][j] == 'X') // Checks the left spot
-        {
-          counter++;
-        }
-        if (generation[column-2][j-1] == 'X') // Checks the top left spot
-        {
-          counter++;
-        }
-        if (generation[column-2][j+1] == 'X') // Checks the bottom left spot
-        {
-          counter++;
-        }
+        counter++;
       }
-
-      // Checking the bottom border of the grid
-      if ((generation[i][j] == bottomBorder) && (bottomBorder != (bottomLeftCorner || bottomRightCorner)))
+      if ((i != column-1 && j != 0) && grid[i+1][j-1] == 'X') // Checks the top right neighbor
       {
-        if (generation[i][j] == 'X') // Checks to see if spot has X and adds to counter because of mirror mode
-        {
-          counter++;
-        }
-        if (generation[i-1][row-1] == 'X') // Checks the left spot
-        {
-          counter += 2;
-        }
-        if (generation[i+1][row-1] == 'X') // Checks the right spot
-        {
-          counter +=2;
-        }
-        if (generation[i][row-2] == 'X') // Checks the top spot
-        {
-          counter++;
-        }
-        if (generation[i-1][row-2] == 'X') // Checks the top left spot
-        {
-          counter++;
-        }
-        if (generation[i+1][row-2] == 'X') // Checks the top right spot
-        {
-          counter++;
-        }
+        counter++;
       }
-
-      if (generation[i][j] != (leftBorder || topBorder || rightBorder || bottomBorder || topLeftCorner || topRightCorner || bottomLeftCorner || bottomRightCorner))
+      if ((i != 0 && j != row-1) && grid[i-1][j+1] == 'X') // Checks the bottom left neighbor
       {
-        // Checks the normal neighbors
-        if (generation[i-1][j] == 'X') // Checks the left neighbor
-        {
-          counter++;
-        }
-        if (generation[i+1][j] == 'X') // Checks the right neighbor
-        {
-          counter++;
-        }
-        if (generation[i][j-1] == 'X') // Checks the top neighbor
-        {
-          counter++;
-        }
-        if (generation[i][j+1] == 'X') // Checks the bottom neighbor
-        {
-          counter++;
-        }
-
-        // Checks the diagnal neighbors
-        if (generation[i-1][j-1] == 'X') // Checks the top left neighbor
-        {
-          counter++;
-        }
-        if (generation[i+1][j-1] == 'X') // Checks the top right neighbor
-        {
-          counter++;
-        }
-        if (generation[i-1][j+1] == 'X') // Checks the bottom left neighbor
-        {
-          counter++;
-        }
-        if (generation[i+1][j+1] == 'X') // Checks the bottom right neighbor
-        {
-          counter++;
-        }
+        counter++;
+      }
+      if ((i != column-1 && j != row-1) && grid[i+1][j+1] == 'X') // Checks the bottom right neighbor
+      {
+        counter++;
       }
 
 
-      // Do something with the counter here
+      // implement the future values for next generation
       if (counter <= 1 || counter >= 4)
       {
         nextGeneration[i][j] = '-';
       }
       else if (counter == 2)
       {
-        nextGeneration[i][j] = generation[i][j];
+        nextGeneration[i][j] = grid[i][j];
       }
       else if (counter == 3)
       {
@@ -312,13 +342,13 @@ void MirrorMode::countNeighbors()
   }
 }
 
-bool MirrorMode::isEmpty()
+bool MirrorMode::isEmpty(char **grid, int row, int column)
 {
   for (int i = 0; i < column; ++i)
   {
     for (int j = 0; j < row; ++j)
     {
-      if (nextGeneration[i][j] == 'X')
+      if (grid[i][j] == 'X')
       {
         return false;
       }
@@ -326,4 +356,36 @@ bool MirrorMode::isEmpty()
   }
 
   return true;
+}
+
+void MirrorMode::printGrid(char **grid, int row, int column)
+{
+  for (int i = 0; i < column; ++i)
+  {
+    for (int j = 0; j < row; ++j)
+    {
+      cout << grid[i][j];
+    }
+    cout << endl;
+  }
+}
+
+void MirrorMode::setGeneration(char **grid)
+{
+  generation = grid;
+}
+
+void MirrorMode::setNextGeneration(char **grid)
+{
+  nextGeneration = grid;
+}
+
+char** MirrorMode::getGeneration()
+{
+  return generation;
+}
+
+char** MirrorMode::getNextGeneration()
+{
+  return nextGeneration;
 }

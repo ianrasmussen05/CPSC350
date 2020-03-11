@@ -1,27 +1,28 @@
-#include "NaiveList.h"
+#include "DoublyLinkedList.h"
 
-NaiveList::NaiveList()
+DoublyLinkedList::DoublyLinkedList()
 {
   front = NULL;
+  back = NULL;
   size = 0;
 }
 
-NaiveList::~NaiveList()
+DoublyLinkedList::~DoublyLinkedList()
 {
   // build some character
 }
 
-unsigned int NaiveList::getSize()
+unsigned int DoublyLinkedList::getSize()
 {
   return size;
 }
 
-bool NaiveList:isEmpty()
+bool DoublyLinkedList:isEmpty()
 {
   return (size == 0);
 }
 
-void NaiveList::printList()
+void DoublyLinkedList::printList()
 {
   ListNode *curr = front;
 
@@ -32,15 +33,43 @@ void NaiveList::printList()
   }
 }
 
-void NaiveList::insertFront(int d)
+void DoublyLinkedList::insertFront(int d)
 {
-  ++size;
   ListNode *node = new ListNode(d);
-  node->next = front;
+
+  if (isEmpty())
+  {
+    back = node;
+  }
+  else
+  {
+    front->prev = node;
+    node->next = front;
+  }
+
   front = node;
+  size++;
 }
 
-int NaiveList::removeFront()
+void DoublyLinkedList::insertBack(int d)
+{
+  ListNode *node = new ListNode(d);
+
+  if (isEmpty())
+  {
+    front = node;
+  }
+  else
+  {
+    back->next = node;
+    nod->prev = back;
+  }
+
+  back = node;
+  size++;
+}
+
+int DoublyLinkedList::removeFront()
 {
   int temp = front->data;
   ListNode *ft = front;
@@ -52,7 +81,7 @@ int NaiveList::removeFront()
   return temp;
 }
 
-int NaiveList::search(int value)
+int DoublyLinkedList::search(int value)
 {
   int position = -1;
   ListNode *curr = front;
@@ -80,7 +109,7 @@ int NaiveList::search(int value)
   return position;
 }
 
-int NaiveList::removeAtPosition(int position)
+int DoublyLinkedList::removeAtPosition(int position)
 {
   // error checking
   int idx = 0;

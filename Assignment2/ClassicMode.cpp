@@ -56,8 +56,31 @@ ClassicMode::ClassicMode(int row, int column)
       nextGeneration[i][j] = '-';
     }
   }
+}
 
+ClassicMode::ClassicMode(int row, int column, double density)
+{
+  this->row = row;
+  this->column = column;
+  this->density = density;
 
+  generation = new char *[column];
+  nextGeneration = new char *[column];
+
+  for (int i = 0; i < column; ++i)
+  {
+    generation[i] = new char[row];
+    nextGeneration[i] = new char[row];
+  }
+
+  for (int i = 0; i < column; ++i)
+  {
+    for (int j = 0; j < row; ++j)
+    {
+      generation[i][j] = '-';
+      nextGeneration[i][j] = '-';
+    }
+  }
 }
 
 // Destructor
@@ -67,52 +90,60 @@ ClassicMode::~ClassicMode()
   delete nextGeneration;
 }
 
-void ClassicMode::generateGrid()
+void ClassicMode::generateGridRandom()
 {
   double totalCells = 0;
   double densityOfGrid = 0;
-  int numDensity = 0;
+  int densityCount = 0;
 
   InputLife *inputGrid = new InputLife();
 
   inputGrid->getRow();
   inputGrid->getColumn();
+  inputGrid->getDensity();
 
-  totalCells = (double)column * row;
-  densityOfGrid = density * totalCells;
+  totalCells = column * row;
+  densityOfGrid = density * (double)totalCells;
 
-  // Figure out how to get the remainder of the decimal
-  if ((densityOfGrid / 100) >= 0.5)
-  {
+  densityCount = (int)densityOfGrid;
 
-  }
-
-  while (numDensity != 0)
+  while (densityCount != 0)
   {
     for (int i = 0; i < column; ++i)
     {
       for (int j = 0; j < row; ++j)
       {
-        if (numDensity == 0)
+        if (densityCount == 0)
         {
           break;
         }
 
         double randNum = rand() % 100;
 
-        if (randNum <= density)
+        if (randNum <= density * 100)
         {
           generation[i][j] = 'X';
-          numDensity--;
+          densityCount--;
         }
       }
     }
   }
 
+  printGrid(generation, row, column);
+
+
+  if (isEmpty(generation, row, column))
+  {
+    cout << "The file is empty." << endl;
+    exit(0);
+  }
+
+  countNeighbors(generation, row, column);
+
   delete inputGrid;
 }
 
-void ClassicMode::countNeighbors()
+void ClassicMode::countNeighbors(char **grid, int row, int column)
 {
   int counter = 0;
 
@@ -122,37 +153,40 @@ void ClassicMode::countNeighbors()
     {
       counter = 0; // Resets the counter each iteration
 
-      if (generation[i-1][j] == 'X' && i != 0) // Checks left neighbor
+
+      // I was receiving a segmentation fault when trying to check the neighbors in classic mode, but I figured
+      // it out by switching the two conditions in each if statement
+      if (i != 0 && grid[i-1][j] == 'X') // Checks left neighbor
       {
         counter++;
       }
-      if (generation[i+1][j] == 'X' && (i != column - 1)) // Checks the right neighbor
+      if ((i != column-1) && grid[i+1][j] == 'X') // Checks the right neighbor
       {
         counter++;
       }
-      if (generation[i][j-1] == 'X' && j != 0) // Checks the neighbor above
+      if (j != 0 && grid[i][j-1] == 'X') // Checks the neighbor above
       {
         counter++;
       }
-      if (generation[i][j+1] == 'X' && (j != row + 1)) // Checks the bottom neighbor
+      if ((j != row+1) && grid[i][j+1] == 'X') // Checks the bottom neighbor
       {
         counter++;
       }
 
       // All the diagnal spots in the generation
-      if (generation[i-1][j-1] == 'X' && (i != 0 && j != 0)) // Checks the top left neighbor
+      if ((i != 0 && j != 0) && grid[i-1][j-1] == 'X') // Checks the top left neighbor
       {
         counter++;
       }
-      if (generation[i+1][j-1] == 'X' && (i != column - 1 && j != 0)) // Checks the top right neighbor
+      if ((i != column-1 && j != 0) && grid[i+1][j-1] == 'X') // Checks the top right neighbor
       {
         counter++;
       }
-      if (generation[i-1][j+1] == 'X' && (i != 0 && j != row - 1)) // Checks the bottom left neighbor
+      if ((i != 0 && j != row-1) && (grid[i-1][j+1] == 'X')) // Checks the bottom left neighbor
       {
         counter++;
       }
-      if (generation[i+1][j+1] == 'X' && (i != column - 1 && j != row - 1)) // Checks the bottom right neighbor
+      if ((i != column-1 && j != row-1) && grid[i+1][j+1] == 'X') // Checks the bottom right neighbor
       {
         counter++;
       }
@@ -164,7 +198,7 @@ void ClassicMode::countNeighbors()
       }
       else if (counter == 2)
       {
-        nextGeneration[i][j] = generation[i][j];
+        nextGeneration[i][j] = grid[i][j];
       }
       else if (counter == 3)
       {
@@ -174,25 +208,50 @@ void ClassicMode::countNeighbors()
   }
 }
 
-bool ClassicMode::isEmpty()
+bool ClassicMode::isEmpty(char **grid, int row, int column)
 {
-  InputLife *inputGrid = new InputLife();
-
-  inputGrid->getRow();
-  inputGrid->getColumn();
-
   for (int i = 0; i < column; ++i)
   {
     for (int j = 0; j < row; ++j)
     {
-      if (nextGeneration[i][j] == 'X')
+      if (grid[i][j] == 'X')
       {
-        delete inputGrid;
         return false;
       }
     }
   }
 
-  delete inputGrid;
   return true;
+}
+
+void ClassicMode::printGrid(char **grid, int row, int column)
+{
+  for (int i = 0; i < column; ++i)
+  {
+    for (int j = 0; j < row; ++j)
+    {
+      cout << grid[i][j];
+    }
+    cout << endl;
+  }
+}
+
+void ClassicMode::setGeneration(char **grid)
+{
+  generation = grid;
+}
+
+void ClassicMode::setNextGeneration(char **grid)
+{
+  nextGeneration = grid;
+}
+
+char** ClassicMode::getGeneration()
+{
+  return generation;
+}
+
+char** ClassicMode::getNextGeneration()
+{
+  return nextGeneration;
 }

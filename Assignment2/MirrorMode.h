@@ -23,12 +23,20 @@ private:
 public:
   MirrorMode();
   MirrorMode(int row, int column);
+  MirrorMode(int row, int column, double density);
   ~MirrorMode();
 
-  void generateGrid();
-  void countNeighbors();
+  void generateGridRandom();
+  void countNeighbors(char **grid, int row, int column);
 
-  bool isEmpty();
+  bool isEmpty(char **grid, int row, int column);
+  void printGrid(char **grid, int row, int column);
+
+  void setGeneration(char** grid);
+  void setNextGeneration(char** grid);
+
+  char **getGeneration();
+  char **getNextGeneration();
 
 
   // Generations

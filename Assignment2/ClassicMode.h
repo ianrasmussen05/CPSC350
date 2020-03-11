@@ -23,12 +23,20 @@ private:
 public:
   ClassicMode(); // Constructor
   ClassicMode(int row, int column); // Overloaded Constructor
+  ClassicMode(int row, int column, double density);
   ~ClassicMode(); // Destructor
 
-  void generateGrid();
-  void countNeighbors();
+  void generateGridRandom();
+  void countNeighbors(char **grid, int row, int column);
 
-  bool isEmpty();
+  bool isEmpty(char **grid, int row, int column);
+  void printGrid(char **grid, int row, int column);
+
+  void setGeneration(char** grid);
+  void setNextGeneration(char** grid);
+
+  char **getGeneration();
+  char **getNextGeneration();
 
   // Generations
   char **generation;

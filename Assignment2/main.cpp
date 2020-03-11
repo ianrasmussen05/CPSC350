@@ -36,9 +36,13 @@ int main(int argc, char** argv)
 
       int currRow = inputClass->getRow();
       int currColumn = inputClass->getColumn();
+      double currDensity = inputClass->getDensity();
 
-      ClassicMode *classic = new ClassicMode(currRow, currColumn);
+      ClassicMode *classic = new ClassicMode(currRow, currColumn, currDensity);
 
+      classic->generateGridRandom();
+
+      classic->printGrid(classic->getNextGeneration(), currRow, currColumn);
 
       delete classic;
     }
@@ -50,9 +54,15 @@ int main(int argc, char** argv)
 
       int currRow = inputClass->getRow();
       int currColumn = inputClass->getColumn();
+      double currDensity = inputClass->getDensity();
 
-      MirrorMode *mirror = new MirrorMode(currRow, currColumn);
+      MirrorMode *mirror = new MirrorMode(currRow, currColumn, currDensity);
 
+      mirror->generateGridRandom();
+
+      cout << endl;
+
+      mirror->printGrid(mirror->getNextGeneration(), currRow, currColumn);
 
       delete mirror;
     }
@@ -64,8 +74,15 @@ int main(int argc, char** argv)
 
       int currRow = inputClass->getRow();
       int currColumn = inputClass->getColumn();
+      double currDensity = inputClass->getDensity();
 
-      DoughnutMode *doughnut = new DoughnutMode(currRow, currColumn);
+      DoughnutMode *doughnut = new DoughnutMode(currRow, currColumn, currDensity);
+
+      doughnut->generateGridRandom();
+
+      cout << endl;
+
+      doughnut->printGrid(doughnut->getNextGeneration(), currRow, currColumn);
 
 
       delete doughnut;
