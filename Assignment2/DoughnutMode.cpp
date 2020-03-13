@@ -58,6 +58,7 @@ DoughnutMode::DoughnutMode(int row, int column)
   }
 }
 
+// Overloaded Constructor
 DoughnutMode::DoughnutMode(int row, int column, double density)
 {
   this->row = row;
@@ -90,6 +91,7 @@ DoughnutMode::~DoughnutMode()
   delete nextGeneration;
 }
 
+// Generates grid from random input
 void DoughnutMode::generateGridRandom()
 {
   double totalCells = 0;
@@ -101,6 +103,7 @@ void DoughnutMode::generateGridRandom()
   inputGrid->getRow();
   inputGrid->getColumn();
   inputGrid->getDensity();
+  inputGrid->getFileName();
 
   totalCells = column * row;
   densityOfGrid = density * (double)totalCells;
@@ -143,6 +146,13 @@ void DoughnutMode::generateGridRandom()
   delete inputGrid;
 }
 
+// This is supposed to be used for file input, have not finished this
+void DoughnutMode::generateGridFile()
+{
+
+}
+
+// Counts the neighbors of each part in the inputed grid
 void DoughnutMode::countNeighbors(char **grid, int row, int column)
 {
   int counter = 0;
@@ -161,19 +171,6 @@ void DoughnutMode::countNeighbors(char **grid, int row, int column)
       // Checks the top left corner of the grid, and checks the wrapped grid
       if (grid[i][j] == grid[0][0])
       {
-        if (grid[0][1] == 'X') // Checks the right neighbor
-        {
-          counter++;
-        }
-        if (grid[1][0] == 'X') // Checks the left neighbor
-        {
-          counter++;
-        }
-        if (grid[1][1] == 'X') // Chekcs the bottom right neighbor
-        {
-          counter++;
-        }
-
         if (grid[column-1][row-1] == 'X') // Checks the opposite corner of the grid
         {
           counter++;
@@ -196,23 +193,8 @@ void DoughnutMode::countNeighbors(char **grid, int row, int column)
           counter++;
         }
       }
-
-      // Checks to see if the spot is in the top right corner
-      if (grid[i][j] == grid[column-1][0])
+      else if (grid[i][j] == grid[column-1][0]) // Checks to see if the spot is in the top right corner
       {
-        if (grid[column-2][0] == 'X') // Checks the left neighbor
-        {
-          counter++;
-        }
-        if (grid[column-1][1] == 'X') // Checks the bottom neighbor
-        {
-          counter++;
-        }
-        if (grid[column-2][1] == 'X') // Checks the bottom left neighbor
-        {
-          counter++;
-        }
-
         if (grid[0][row-1] == 'X') // Checks opposite corner neighbor of grid
         {
           counter++;
@@ -235,28 +217,13 @@ void DoughnutMode::countNeighbors(char **grid, int row, int column)
           counter++;
         }
       }
-
-      // Checks to see if the spot is in the bottom left corner
-      if (grid[i][j] == grid[0][row-1])
+      else if (grid[i][j] == grid[0][row-1]) // Checks to see if the spot is in the bottom left corner
       {
-        if (grid[1][row-1] == 'X') // Checks the right of the corner
+        if (grid[column-1][0] == 'X') // Checks the top right of grid, opposite corner
         {
           counter++;
         }
-        if (grid[0][row-2] = 'X') // Checks the top neighbor of the corner
-        {
-          counter++;
-        }
-        if (grid[1][row-2] == 'X') // Checks the top right neighbor of the corner
-        {
-          counter++;
-        }
-
-          if (grid[column-1][0] == 'X') // Checks the top right of grid, opposite corner
-        {
-          counter++;
-        }
-          if (grid[0][0] == 'X') // The vertical opposite of bottom left corner
+        if (grid[0][0] == 'X') // The vertical opposite of bottom left corner
         {
           counter++;
         }
@@ -273,22 +240,8 @@ void DoughnutMode::countNeighbors(char **grid, int row, int column)
           counter++;
         }
       }
-        // Checks to see if the value is at the bottom right corner
-      if (grid[i][j] == grid[column-1][row-1])
+      else if (grid[i][j] == grid[column-1][row-1]) // Checks to see if the value is at the bottom right corner
       {
-        if (grid[column-2][row-1] == 'X') // Checks the left neighbor of the bottom right corner
-        {
-          counter++;
-        }
-        if (grid[column-1][row-2] == 'X') // Checks the top neighbor of the bottom right corner
-        {
-          counter++;
-        }
-        if (grid[column-2][row-2] == 'X') // Checks the top left neighbor of bottom right corner
-        {
-          counter++;
-        }
-
         if (grid[0][0] == 'X') // Checks the top left of the grid
         {
           counter++;
@@ -312,35 +265,9 @@ void DoughnutMode::countNeighbors(char **grid, int row, int column)
         }
       }
 
-      char leftBorder = grid[0][j];
-      char topBorder = grid[i][0];
-      char rightBorder = grid[column-1][j];
-      char bottomBorder = grid[i][row-1];
-
       // Checks the left border of the grid
-      if ((grid[i][j] == leftBorder) && (leftBorder != (topLeftCorner || bottomLeftCorner)))
+      if (i == 0 && (j != 0 || j != row-1))
       {
-        if (grid[1][j] == 'X') // Checks the right neighbor
-        {
-          counter++;
-        }
-        if (grid[i][j-1] == 'X') // Checks the top neighbor
-        {
-          counter++;
-        }
-        if (grid[i][j+1] == 'X') // Checks the bottom neighbor
-        {
-          counter++;
-        }
-        if (grid[1][j-1] == 'X') // Checks the top left neighbor
-        {
-          counter++;
-        }
-        if (grid[1][j+1] == 'X') // Checks the bottom right neighbor
-        {
-          counter++;
-        }
-
         if (grid[column-1][j] == 'X') // Checks opposite (right side) neighbor
         {
           counter++;
@@ -354,31 +281,8 @@ void DoughnutMode::countNeighbors(char **grid, int row, int column)
           counter++;
         }
       }
-
-      // Checks the top border of the grid
-      if ((grid[i][j] == topBorder) && (topBorder != (topLeftCorner || topRightCorner)))
+      else if (j == 0 && (i != 0 && i != column-1)) // Checks the top border of the grid
       {
-        if (grid[i+1][j] == 'X') // Checks the right neighbor
-        {
-          counter++;
-        }
-        if (grid[i-1][j] == 'X') // Checks the left neighbor
-        {
-          counter++;
-        }
-        if (grid[i][j+1] == 'X') // Checks the bottom neighbor
-        {
-          counter++;
-        }
-        if (grid[i-1][j+1] == 'X') // Checks the bottom left neighbor
-        {
-          counter++;
-        }
-        if (grid[i+1][j+1] == 'X') // Checks the bottom right neighbor
-        {
-          counter++;
-        }
-
         if (grid[i][row-1] == 'X') // Checks the opposite side neighbor
         {
           counter++;
@@ -392,29 +296,8 @@ void DoughnutMode::countNeighbors(char **grid, int row, int column)
           counter++;
         }
       }
-      // Checks the right border of the grid
-      if ((grid[i][j] == rightBorder) && (rightBorder != (topRightCorner || bottomRightCorner)))
+      else if (i == column-1 && (j != row-1 && j != 0)) // Checks the right border of the grid
       {
-        if (grid[column-2][j] == 'X') // Checks the left neighbor
-        {
-          counter++;
-        }
-        if (grid[column-1][j-1] == 'X') // Checks the top neighbor
-        {
-          counter++;
-        }
-        if (grid[column-1][j+1] == 'X') // Checks the bottom neighbor
-        {
-          counter++;
-        }
-        if (grid[column-2][j-1] == 'X') // Checks top left neighbor
-        {
-          counter++;
-        }
-        if (grid[column-2][j+1] == 'X') // Checks the bottom left neighbor
-        {
-          counter++;
-        }
 
         if (grid[0][j] == 'X') // Checks the left side spot
         {
@@ -430,29 +313,8 @@ void DoughnutMode::countNeighbors(char **grid, int row, int column)
         }
       }
       // Checks the bottom border of the grid
-      if ((grid[i][j] == bottomBorder) && (bottomBorder != (bottomLeftCorner || bottomRightCorner)))
+      if (j == row-1 && (i != 0 && i != column-1))
       {
-        if (grid[i-1][j] == 'X') // Checks the left neighbor
-        {
-          counter++;
-        }
-        if (grid[i+1][j] == 'X') // Checks the right neighbor
-        {
-          counter++;
-        }
-        if (grid[i][j-1] == 'X') // Checks the top neighbor
-        {
-          counter++;
-        }
-        if (grid[i-1][j-1] == 'X') // Checks the top left neighbor
-        {
-          counter++;
-        }
-        if (grid[i+1][j-1] == 'X') // Checks the top right neighbor
-        {
-          counter++;
-        }
-
         if (grid[i][0] == 'X') // Checks the top of grid
         {
           counter++;
@@ -467,41 +329,40 @@ void DoughnutMode::countNeighbors(char **grid, int row, int column)
         }
       }
 
-      // If the center of the grid is called on
-      if (grid[i][j] != (bottomLeftCorner || bottomRightCorner || topLeftCorner || topRightCorner || bottomBorder || leftBorder || topBorder || rightBorder))
+      // Checks the normal neighbors
+      if (i != 0 && grid[i-1][j] == 'X') // Checks the left neighbor
       {
-        if (grid[i-1][j-1] == 'X') // Checks the top left spot
-        {
-          counter++;
-        }
-        if (grid[i][j-1] == 'X') // Checks the top spot
-        {
-          counter++;
-        }
-        if (grid[i+1][j-1] == 'X') // Checks the top right spot
-        {
-          counter++;
-        }
-        if (grid[i-1][j] == 'X') // Checks the left spot
-        {
-          counter++;
-        }
-        if (grid[i+1][j] == 'X') // Checks the right spot
-        {
-          counter++;
-        }
-        if (grid[i-1][j+1] == 'X') // Checks the bottom left spot
-        {
-          counter++;
-        }
-        if (grid[i][j+1] == 'X') // Checks the bottom spot
-        {
-          counter++;
-        }
-        if (grid[i+1][j+1] == 'X') // Checks the bottom right spot
-        {
-          counter++;
-        }
+        counter++;
+      }
+      if (i != column-1 && grid[i+1][j] == 'X') // Checks the right neighbor
+      {
+        counter++;
+      }
+      if (j != 0 && grid[i][j-1] == 'X') // Checks the top neighbor
+      {
+        counter++;
+      }
+      if (j != row-1 && grid[i][j+1] == 'X') // Checks the bottom neighbor
+      {
+        counter++;
+      }
+
+      // Checks the diagnal neighbors
+      if ((i != 0 && j != 0) && grid[i-1][j-1] == 'X') // Checks the top left neighbor
+      {
+        counter++;
+      }
+      if ((i != column-1 && j != 0) && grid[i+1][j-1] == 'X') // Checks the top right neighbor
+      {
+        counter++;
+      }
+      if ((i != 0 && j != row-1) && grid[i-1][j+1] == 'X') // Checks the bottom left neighbor
+      {
+        counter++;
+      }
+      if ((i != column-1 && j != row-1) && grid[i+1][j+1] == 'X') // Checks the bottom right neighbor
+      {
+        counter++;
       }
 
 
@@ -550,6 +411,7 @@ void DoughnutMode::printGrid(char **grid, int row, int column)
   }
 }
 
+// Setters
 void DoughnutMode::setGeneration(char **grid)
 {
   generation = grid;
@@ -560,6 +422,7 @@ void DoughnutMode::setNextGeneration(char **grid)
   nextGeneration = grid;
 }
 
+// Getters
 char** DoughnutMode::getGeneration()
 {
   return generation;

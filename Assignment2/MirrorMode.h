@@ -21,13 +21,14 @@ private:
   double density;
 
 public:
-  MirrorMode();
-  MirrorMode(int row, int column);
+  MirrorMode(); // Default Constructor
+  MirrorMode(int row, int column); // Overloaded Constructor
   MirrorMode(int row, int column, double density);
-  ~MirrorMode();
+  ~MirrorMode(); // Destructor
 
-  void generateGridRandom();
-  void countNeighbors(char **grid, int row, int column);
+  void generateGridRandom(); // Generates from random input
+  void generateGridFile(); // Generates from a file, have not finished
+  void countNeighbors(char **grid, int row, int column);// counts current generations and updates future generation
 
   bool isEmpty(char **grid, int row, int column);
   void printGrid(char **grid, int row, int column);

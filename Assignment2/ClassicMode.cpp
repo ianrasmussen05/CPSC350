@@ -58,6 +58,7 @@ ClassicMode::ClassicMode(int row, int column)
   }
 }
 
+// Overloaded Constructor
 ClassicMode::ClassicMode(int row, int column, double density)
 {
   this->row = row;
@@ -90,6 +91,7 @@ ClassicMode::~ClassicMode()
   delete nextGeneration;
 }
 
+// Generates a grid from the random input
 void ClassicMode::generateGridRandom()
 {
   double totalCells = 0;
@@ -101,6 +103,7 @@ void ClassicMode::generateGridRandom()
   inputGrid->getRow();
   inputGrid->getColumn();
   inputGrid->getDensity();
+  inputGrid->getFileName();
 
   totalCells = column * row;
   densityOfGrid = density * (double)totalCells;
@@ -143,6 +146,13 @@ void ClassicMode::generateGridRandom()
   delete inputGrid;
 }
 
+// Used to get the user input for a file, not finished
+void ClassicMode::generateGridFile()
+{
+
+}
+
+// Counts each spot in the inputed grid and determines which cell dies or lives
 void ClassicMode::countNeighbors(char **grid, int row, int column)
 {
   int counter = 0;
@@ -224,6 +234,7 @@ bool ClassicMode::isEmpty(char **grid, int row, int column)
   return true;
 }
 
+// Prints the entire grid with inputed grid
 void ClassicMode::printGrid(char **grid, int row, int column)
 {
   for (int i = 0; i < column; ++i)
@@ -236,6 +247,7 @@ void ClassicMode::printGrid(char **grid, int row, int column)
   }
 }
 
+// Setters
 void ClassicMode::setGeneration(char **grid)
 {
   generation = grid;
@@ -246,6 +258,7 @@ void ClassicMode::setNextGeneration(char **grid)
   nextGeneration = grid;
 }
 
+// Getters
 char** ClassicMode::getGeneration()
 {
   return generation;

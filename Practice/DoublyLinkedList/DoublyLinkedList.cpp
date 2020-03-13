@@ -71,12 +71,73 @@ void DoublyLinkedList::insertBack(int d)
 
 int DoublyLinkedList::removeFront()
 {
-  int temp = front->data;
-  ListNode *ft = front;
+  ListNode *temp = front;
+
+  if (front->next == NULL)
+  {
+    // we have one node in the list
+    back = NULL;
+  }
+  else
+  {
+    // There is more than one node in the list
+    front->next->prev = NULL;
+  }
+
   front = front->next;
-  ft->next = NULL;
-  delete ft;
-  --size;
+  temp->next = NULL;
+  int tmp = temp->data;
+
+  delete temp;
+
+  size--;
+  return tmp;
+}
+
+// need to to find the value in the list before we can delete
+// this functin does not take in a position as a parameter
+int DoublyLinkedList::remove(int val)
+{
+  ListNode *curr = front;
+
+  while (curr->data != val)
+  {
+    // Keep iterating until we find our value
+    curr = curr->next;
+
+    if (curr == NULL)
+    {
+      return NULL; // might have to return 0
+    }
+  }
+
+  // We found the value, now lets proceed to delete
+  if (curr == front)
+  {
+    // check if node to be deleted is the front
+    front = curr->next;
+  }
+  else
+  {
+    // node to deleted is not the front or back
+    curr->prev->next = curr->next;
+  }
+
+  if (curr == back)
+  {
+    back = curr->prev;
+  }
+  else
+  {
+    // node to deleted is not the front or back, its in between
+    curr->next->prev = curr->prev;
+  }
+
+  curr->next = NULL;
+  curr->prev = NULL;
+  int temp = curr->data;
+  delete curr;
+  size--;
 
   return temp;
 }

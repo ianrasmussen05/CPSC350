@@ -19,13 +19,14 @@ InputLife::InputLife()
 // Destructor
 InputLife::~InputLife()
 {
-
+  delete generation;
 }
 
+// This function is called on to make the user have input
 void InputLife::FileOrConsole()
 {
   string userInput = "\0";
-  cout << "Do you wish to provide a map file(type 'file') or have it randomly generated(type 'random')? ";
+  cout << "Do you wish to provide a map file (type 'file') or have it randomly generated(type 'random')? ";
   cin >> userInput;
 
   for (int i = 0; i < userInput.size(); ++i)
@@ -38,12 +39,15 @@ void InputLife::FileOrConsole()
     if (userInput == "file")
     {
       CheckFile();
+      isFile();
 
       break;
     }
     else if (userInput == "random")
     {
       validInputs();
+      isRandom();
+      fileName = "\0";
 
       break;
     }
@@ -80,17 +84,20 @@ void InputLife::CheckFile()
       int rowCounter = 0;
       int columnCounter = 0;
 
+      vector<char> gridArray;
+
       while (getline(inFS, line))
       {
         for (int i = 0; i < line.size()-1; ++i)
         {
           rowCounter++;
+          gridArray.push_back(line[i]);
         }
         columnCounter++;
       }
 
       rowCounter /= columnCounter;
-      
+
 
       if (rowCounter < 3 || rowCounter > 100)
       {
@@ -102,7 +109,28 @@ void InputLife::CheckFile()
       }
       else
       {
+        setColumn(columnCounter);
+        setRow(rowCounter);
         setFileName(userFile);
+
+        generation = new char *[column];
+
+        for (int i = 0; i < column; ++i)
+        {
+          generation[i] = new char[row];
+        }
+
+        for (int i = 0; i < column; ++i)
+        {
+          for (int j = 0; j < row; ++j)
+          {
+            generation[i][j] = gridArray.at(0);
+            gridArray.erase(gridArray.begin());
+          }
+        }
+
+        setGeneration(generation);
+
         break;
       }
     }
@@ -110,6 +138,7 @@ void InputLife::CheckFile()
   }
 }
 
+// Checks to see if the user had valid inputs
 void InputLife::validInputs()
 {
   int userRow = 0;
@@ -158,6 +187,18 @@ void InputLife::validInputs()
 }
 
 
+// Boolean functions that is always true
+bool InputLife::isRandom()
+{
+  return true;
+}
+
+bool InputLife::isFile()
+{
+  return true;
+}
+
+
 
 // Getters for all variables
 int InputLife::getRow()
@@ -180,6 +221,11 @@ string InputLife::getFileName()
   return fileName;
 }
 
+char** InputLife::getGeneration()
+{
+  return generation;
+}
+
 
 // Setters for all variables
 void InputLife::setRow(int row)
@@ -200,4 +246,9 @@ void InputLife::setDensity(double density)
 void InputLife::setFileName(string fileName)
 {
   this->fileName = fileName;
+}
+
+void InputLife::setGeneration(char **grid)
+{
+  generation = grid;
 }

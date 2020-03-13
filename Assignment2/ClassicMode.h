@@ -26,8 +26,9 @@ public:
   ClassicMode(int row, int column, double density);
   ~ClassicMode(); // Destructor
 
-  void generateGridRandom();
-  void countNeighbors(char **grid, int row, int column);
+  void generateGridRandom(); // Generates the random grid
+  void generateGridFile(); // Generates from a file, have not finished
+  void countNeighbors(char **grid, int row, int column); // counts current generations and updates future generation
 
   bool isEmpty(char **grid, int row, int column);
   void printGrid(char **grid, int row, int column);

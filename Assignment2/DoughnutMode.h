@@ -21,13 +21,14 @@ private:
   double density;
 
 public:
-  DoughnutMode();
-  DoughnutMode(int row, int column);
+  DoughnutMode(); // Default Constructor
+  DoughnutMode(int row, int column); // Overloaded Constructor
   DoughnutMode(int row, int column, double density);
-  ~DoughnutMode();
+  ~DoughnutMode(); // Destructor
 
   void generateGridRandom();
-  void countNeighbors(char **grid, int row, int column);
+  void generateGridFile(); // Generates from a file, have not finished
+  void countNeighbors(char **grid, int row, int column); // Counts neighbors for doughnut rules
 
   bool isEmpty(char **grid, int row, int column);
   void printGrid(char **grid, int row, int column);

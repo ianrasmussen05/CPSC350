@@ -8,7 +8,7 @@
 #include "MirrorMode.h"
 #include "InputLife.h"
 
-// Constructor
+// Default Constructor
 MirrorMode::MirrorMode()
 {
   row = 5;
@@ -58,6 +58,7 @@ MirrorMode::MirrorMode(int row, int column)
   }
 }
 
+// Overloaded constructor
 MirrorMode::MirrorMode(int row, int column, double density)
 {
   this->row = row;
@@ -101,6 +102,7 @@ void MirrorMode::generateGridRandom()
   inputGrid->getRow();
   inputGrid->getColumn();
   inputGrid->getDensity();
+  inputGrid->getFileName();
 
   totalCells = column * row;
   densityOfGrid = density * (double)totalCells;
@@ -143,6 +145,13 @@ void MirrorMode::generateGridRandom()
   delete inputGrid;
 }
 
+// When the user inputs a file, call this
+void MirrorMode::generateGridFile()
+{
+
+}
+
+// Counts the neighbors of each part in the inputed grid
 void MirrorMode::countNeighbors(char **grid, int row, int column)
 {
   int counter = 0;
@@ -342,6 +351,7 @@ void MirrorMode::countNeighbors(char **grid, int row, int column)
   }
 }
 
+// Checks if the grid is empty
 bool MirrorMode::isEmpty(char **grid, int row, int column)
 {
   for (int i = 0; i < column; ++i)
@@ -358,6 +368,7 @@ bool MirrorMode::isEmpty(char **grid, int row, int column)
   return true;
 }
 
+// Prints the entire grid when called
 void MirrorMode::printGrid(char **grid, int row, int column)
 {
   for (int i = 0; i < column; ++i)
@@ -370,6 +381,7 @@ void MirrorMode::printGrid(char **grid, int row, int column)
   }
 }
 
+// Setters
 void MirrorMode::setGeneration(char **grid)
 {
   generation = grid;
@@ -380,6 +392,7 @@ void MirrorMode::setNextGeneration(char **grid)
   nextGeneration = grid;
 }
 
+// Getters
 char** MirrorMode::getGeneration()
 {
   return generation;
