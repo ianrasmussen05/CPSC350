@@ -1,3 +1,5 @@
+#include "ListNode.h"
+
 class DoublyLinkedList
 {
 private:
@@ -12,7 +14,8 @@ public:
   void insertFront(int data);
   void insertBack(int data);
   int removeFront();
-  int search(int value); // can return value or position of value
+  int remove(int val);
+  int search(int val); // can return value or position of value
   int removeAtPosition(int position);
 
   unsigned int getSize();

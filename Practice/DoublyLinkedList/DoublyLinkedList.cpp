@@ -17,7 +17,7 @@ unsigned int DoublyLinkedList::getSize()
   return size;
 }
 
-bool DoublyLinkedList:isEmpty()
+bool DoublyLinkedList::isEmpty()
 {
   return (size == 0);
 }
@@ -62,7 +62,7 @@ void DoublyLinkedList::insertBack(int d)
   else
   {
     back->next = node;
-    nod->prev = back;
+    node->prev = back;
   }
 
   back = node;
@@ -107,7 +107,7 @@ int DoublyLinkedList::remove(int val)
 
     if (curr == NULL)
     {
-      return NULL; // might have to return 0
+      return 0; // might have to return 0
     }
   }
 

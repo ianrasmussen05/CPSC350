@@ -1,3 +1,5 @@
+#include "ListNode.h"
+
 class NaiveList
 {
 private:

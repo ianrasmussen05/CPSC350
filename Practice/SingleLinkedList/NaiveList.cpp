@@ -16,7 +16,7 @@ unsigned int NaiveList::getSize()
   return size;
 }
 
-bool NaiveList:isEmpty()
+bool NaiveList::isEmpty()
 {
   return (size == 0);
 }

@@ -17,6 +17,6 @@ ListNode::ListNode(int d)
 ListNode::~ListNode()
 {
   // Build some character
-  delete data;
+  delete next;
   delete prev;
 }
