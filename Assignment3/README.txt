@@ -5,7 +5,7 @@ CPSC 350-01
 Assignment 3
 
 Source Files:
-GenStack.h, GenStack.cpp, main.cpp
+GenStack.h, SyntaxCheck.h, SyntaxCheck.cpp, main.cpp
 
 Challenges:
 I was getting an error that said undefined reference, however I used the second [2] link

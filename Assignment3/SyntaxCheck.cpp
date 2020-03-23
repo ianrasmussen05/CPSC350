@@ -61,6 +61,11 @@ void SyntaxCheck::readFile(string fileName)
 {
   ifstream inFS;
 
+  GenStack<char> genArray;
+
+  int lineCounter = 0; // Counts the lines in the file
+  int errorCounter = 0; // Counts the amount of errors in the file
+
   inFS.open(fileName); // Opens file
 
   if (!inFS.is_open()) // If the file doesn't open, program exits
@@ -70,15 +75,129 @@ void SyntaxCheck::readFile(string fileName)
   }
   else // Program continues if file exists
   {
+    string line = "\0";
+
+    // Goes through each line in the file
+    while (getline(inFS, line))
+    {
+      ++lineCounter; // Always starts the line at 1
+
+      int lineSize = line.size() - 1; // The actual size of the line
+
+      // Goes through each character on the line
+      for (int i = 0; i < lineSize; ++i)
+      {
+        // These next if statements check to see if the character has a starting bracket/parantheses
+        if (line[i] == '{')
+        {
+          genArray.push('{');
+        }
+        else if (line[i] == '[')
+        {
+          genArray.push('[');
+        }
+        else if (line[i] == '(')
+        {
+          genArray.push('(');
+        }
+
+        // If the character in the line has a curly bracket, it pops from the stack to check if it matches
+        if (line[i] == '}')
+        {
+          if (genArray.pop() == '{')
+          {
+            // Nothing happens, the brackets match
+            continue;
+          }
+          else if (genArray.peek() == '[') // Checks to see if the top of the stack is a bracket, then throws error
+          {
+            cout << "Line " << lineCounter << ": expected ']' and found '}'" << endl;
+            errorCounter++;
+          }
+          else if (genArray.peek() == '(') // Checks to see if the top of the stack is a parantheses, then throws error
+          {
+            cout << "Line " << lineCounter << ": expected ')' and found '}'" << endl;
+            errorCounter++;
+          }
+        }
+        else if (line[i] == ']')
+        {
+          if (genArray.peek() == '{') // Checks to see if the top of the stack is a curly bracket, then throws error
+          {
+            cout << "Line " << lineCounter << ": expected '}' and found ']'" << endl;
+            errorCounter++;
+          }
+          else if (genArray.pop() == '[')
+          {
+            // Nothing happens, the brackets match
+            continue;
+          }
+          else if (genArray.peek() == '(') // Checks to see if the top of the stack is a parantheses, then throws error
+          {
+            cout << "Line " << lineCounter << ": expected ')' and found ']'" << endl;
+            errorCounter++;
+          }
+        }
+        else if (line[i] == ')')
+        {
+          if (genArray.peek() == '{') // Checks to see if the top of the stack is a curly bracket, then throws error
+          {
+            cout << "Line " << lineCounter << ": expected '}' and found ')'" << endl;
+            errorCounter++;
+          }
+          else if (genArray.peek() == '[') // Checks to see if the top of the stack is a bracket, then throws error
+          {
+            cout << "Line " << lineCounter << ": expected ']' and found ')'" << endl;
+            errorCounter++;
+          }
+          else if (genArray.pop() == '(')
+          {
+            // Nothing happens, the parantheses match
+            continue;
+          }
+        }
+      }
+    }
 
 
+    // Checks if there were any errors in the file
+    if (errorCounter != 0)
+    {
+      cout << "There were a total of " << errorCounter << " errors in the file." << endl;
+    }
+    else if (errorCounter == 0) // Checks if there were no errors, but then checks if there were any more brackets in the stack
+    {
+      if (genArray.peek() == '{')
+      {
+        cout << "Reached end of file: missin '}'" << endl;
+        errorCounter++;
+      }
+      else if (genArray.peek() == '[')
+      {
+        cout << "Reached end of file: missin ']'" << endl;
+        errorCounter++;
+      }
+      else if (genArray.peek() == '(')
+      {
+        cout << "Reached end of file: missin ')'" << endl;
+        errorCounter++;
+      }
 
+      // Prints the amount of errors
+      cout << "There were a total of " << errorCounter << " errors in the file." << endl;
+    }
 
+    // If there is no errors in the file at all, it passes file check
+    if (genArray.isEmpty())
+    {
+      cout << "The file passes the syntax checker." << endl;
+    }
   }
+
 
   inFS.close(); // Close the file
 
-  inputFile(); // Prompts the user if they want to read from another file 
+  inputFile(); // Prompts the user if they want to read from another file
 }
 
 // Getter for the file name
