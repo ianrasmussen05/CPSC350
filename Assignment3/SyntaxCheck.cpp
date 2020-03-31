@@ -92,11 +92,11 @@ void SyntaxCheck::readFile(string fileName)
         {
           genArray.push('{');
         }
-        else if (line[i] == '[')
+        if (line[i] == '[')
         {
           genArray.push('[');
         }
-        else if (line[i] == '(')
+        if (line[i] == '(')
         {
           genArray.push('(');
         }
@@ -113,11 +113,13 @@ void SyntaxCheck::readFile(string fileName)
           {
             cout << "Line " << lineCounter << ": expected ']' and found '}'" << endl;
             errorCounter++;
+            break; // Exits loop after an error
           }
           else if (genArray.peek() == '(') // Checks to see if the top of the stack is a parantheses, then throws error
           {
             cout << "Line " << lineCounter << ": expected ')' and found '}'" << endl;
             errorCounter++;
+            break; // Exits loop after an error
           }
         }
         else if (line[i] == ']')
@@ -126,6 +128,7 @@ void SyntaxCheck::readFile(string fileName)
           {
             cout << "Line " << lineCounter << ": expected '}' and found ']'" << endl;
             errorCounter++;
+            break; // Exits loop after an error
           }
           else if (genArray.pop() == '[')
           {
@@ -136,6 +139,7 @@ void SyntaxCheck::readFile(string fileName)
           {
             cout << "Line " << lineCounter << ": expected ')' and found ']'" << endl;
             errorCounter++;
+            break; // Exits loop after an error
           }
         }
         else if (line[i] == ')')
@@ -144,11 +148,13 @@ void SyntaxCheck::readFile(string fileName)
           {
             cout << "Line " << lineCounter << ": expected '}' and found ')'" << endl;
             errorCounter++;
+            break; // Exits loop after an error
           }
           else if (genArray.peek() == '[') // Checks to see if the top of the stack is a bracket, then throws error
           {
             cout << "Line " << lineCounter << ": expected ']' and found ')'" << endl;
             errorCounter++;
+            break; // Exits loop after an error
           }
           else if (genArray.pop() == '(')
           {
@@ -161,23 +167,23 @@ void SyntaxCheck::readFile(string fileName)
 
 
     // Checks if there were any errors in the file
-    if (errorCounter != 0)
+    if (errorCounter == 0 && genArray.isEmpty()) // If everything lines up, it passes the syntax checker
     {
-      cout << "There were a total of " << errorCounter << " errors in the file." << endl;
+      cout << "The file passes the syntax checker." << endl;
     }
-    else if (errorCounter == 0) // Checks if there were no errors, but then checks if there were any more brackets in the stack
+    else if (errorCounter == 0 && !genArray.isEmpty()) // Checks if there were no errors, but then checks if there were any more brackets in the stack
     {
-      if (genArray.peek() == '{')
+      if (genArray.pop() == '{')
       {
         cout << "Reached end of file: missin '}'" << endl;
         errorCounter++;
       }
-      else if (genArray.peek() == '[')
+      else if (genArray.pop() == '[')
       {
         cout << "Reached end of file: missin ']'" << endl;
         errorCounter++;
       }
-      else if (genArray.peek() == '(')
+      else if (genArray.pop() == '(')
       {
         cout << "Reached end of file: missin ')'" << endl;
         errorCounter++;
@@ -185,12 +191,7 @@ void SyntaxCheck::readFile(string fileName)
 
       // Prints the amount of errors
       cout << "There were a total of " << errorCounter << " errors in the file." << endl;
-    }
-
-    // If there is no errors in the file at all, it passes file check
-    if (genArray.isEmpty())
-    {
-      cout << "The file passes the syntax checker." << endl;
+      exit(0);
     }
   }
 
