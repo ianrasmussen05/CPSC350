@@ -21,5 +21,5 @@ class SyntaxCheck
     void readFile(string fileName); // Function that reads from a file and checks syntax
 
     string getFile(); // The getter of the file
-    void setFile(string fileName); // The setter of the file 
+    void setFile(string fileName); // The setter of the file
 };

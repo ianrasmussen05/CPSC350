@@ -29,7 +29,7 @@ void SyntaxCheck::inputFile()
   cin >> userInput;
 
   // Sets the users input to all lower case letters to get rid of possible problems
-  for (int i = 0; i < userInput.size(); ++i)
+  for (unsigned int i = 0; i < userInput.size(); ++i)
   {
     userInput[i] = tolower(userInput[i]);
   }

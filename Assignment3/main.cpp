@@ -19,7 +19,7 @@ int main (int argc, char **argv)
 
     delete check;
   }
-  else // If the user didn't enter enough inputs in the console, it exits the program 
+  else // If the user didn't enter enough inputs in the console, it exits the program
   {
     cout << "Please enter the correct console input." << endl;
     exit(0);

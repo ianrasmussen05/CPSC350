@@ -1,0 +1,50 @@
+# I used this to attempt to link each file to each other
+# Assumes the following directory hierarchy:
+# Assignment 3
+
+
+EXECUTABLE := TestStack
+
+SOURCES := *.cpp
+
+INCLUDES := -I .
+EXT := out
+CC := g++
+
+# checks for any warnings
+CFLAGS  := -g -Wall
+
+# typing 'make' will invoke the first target entry in the file
+# (in this case the default target entry)
+# you can name this target entry anything, but "default" or "all"
+# are the most commonly used names by convention
+#
+default: $(EXECUTABLE)
+
+# To create the executable file count we need the object files
+# countwords.o, counter.o, and scanner.o:
+#
+$(EXECUTABLE):  GenStack.o SyntaxCheck.o main.o
+	$(CC) $(CFLAGS) -o $(EXECUTABLE) SyntaxCheck.o GenStack.o main.o
+
+# To create the object file countwords.o, we need the source
+# files countwords.c, scanner.h, and counter.h:
+#
+SyntaxCheck.o:  SyntaxCheck.cpp SyntaxCheck.h GenStack.h
+	$(CC) $(CFLAGS) -c SyntaxCheck.cpp
+
+# To create the object file counter.o, we need the source files
+# counter.c and counter.h:
+#
+GenStack.o:  GenStack.cpp GenStack.h
+	$(CC) $(CFLAGS) -c GenStack.cpp
+
+# To create the object file scanner.o, we need the source files
+# scanner.c and scanner.h:
+#
+main.o: main.cpp GenStack.cpp GenStack.h SyntaxCheck.cpp SyntaxCheck.h
+	$(CC) $(CFLAGS) -c main.cpp
+
+clean:
+	rm $(EXECUTABLE) *.o
+# this line required by make - don't delete
