@@ -5,10 +5,14 @@
 // Assignment 3
 // GenStack.cpp
 
-// This is the file where I attempted to have the template class have its own .cpp
+// Have all the includes inside of the .cpp for better practice
+#include <iostream>
+#include <string>
 
-/*
+using namespace std;
+
 #include "GenStack.h"
+
 
 // The default constructor setting a type name for an array of 64
 template <typename T>
@@ -95,4 +99,8 @@ bool GenStack<T>::isEmpty()
 {
   return (top == -1);
 }
-*/
+
+// This is the line that I needed to fix my code and link all these functions above
+// to the GenStack.h file.
+// https://stackoverflow.com/questions/115703/storing-c-template-function-definitions-in-a-cpp-file
+template class GenStack<char>;

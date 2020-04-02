@@ -5,7 +5,13 @@
 // Assignment 3
 // SyntaxCheck.h
 
-#include "GenStack.h"
+// It is bad practice to have the includes inside the header files, so I went with
+// the 'if not defined' and 'define' operations to check if the file is defined previous
+// to it being compiled
+// https://www.cprogramming.com/reference/preprocessor/ifndef.html
+#ifndef _SYNTAXCHECK_H
+#define _SYNTAXCHECK_H
+
 
 class SyntaxCheck
 {
@@ -23,3 +29,7 @@ class SyntaxCheck
     string getFile(); // The getter of the file
     void setFile(string fileName); // The setter of the file
 };
+
+// This is how you end the #define operation above to let the compiler know the
+// class has ended
+#endif

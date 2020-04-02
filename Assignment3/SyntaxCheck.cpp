@@ -5,7 +5,16 @@
 // Assignment 3
 // SyntaxCheck.cpp
 
+// Have all the includes inside of the .cpp for better practice
+#include <iostream>
+#include <string>
+#include <fstream>
+
+using namespace std;
+
+#include "GenStack.h"
 #include "SyntaxCheck.h"
+
 
 // Default constructor that sets each member variable
 SyntaxCheck::SyntaxCheck()
@@ -29,6 +38,7 @@ void SyntaxCheck::inputFile()
   cin >> userInput;
 
   // Sets the users input to all lower case letters to get rid of possible problems
+  // The unsinged was a warning I was getting from the makefile
   for (unsigned int i = 0; i < userInput.size(); ++i)
   {
     userInput[i] = tolower(userInput[i]);
@@ -175,17 +185,17 @@ void SyntaxCheck::readFile(string fileName)
     {
       if (genArray.pop() == '{')
       {
-        cout << "Reached end of file: missin '}'" << endl;
+        cout << "Reached end of file: missing '}'" << endl;
         errorCounter++;
       }
       else if (genArray.pop() == '[')
       {
-        cout << "Reached end of file: missin ']'" << endl;
+        cout << "Reached end of file: missing ']'" << endl;
         errorCounter++;
       }
       else if (genArray.pop() == '(')
       {
-        cout << "Reached end of file: missin ')'" << endl;
+        cout << "Reached end of file: missing ')'" << endl;
         errorCounter++;
       }
 

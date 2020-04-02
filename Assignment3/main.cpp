@@ -5,6 +5,12 @@
 // Assignment 3
 // main.cpp
 
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+#include "GenStack.h"
 #include "SyntaxCheck.h"
 
 int main (int argc, char **argv)

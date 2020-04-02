@@ -5,14 +5,14 @@
 // Assignment 3
 // GenStack.h
 
-#include <iostream>
-#include <string>
-#include <fstream>
+// It is bad practice to have the includes inside the header files, so I went with
+// the 'if not defined' and 'define' operations to check if the file is defined previous
+// to it being compiled
+// https://www.cprogramming.com/reference/preprocessor/ifndef.html
+#ifndef _GENSTACK_H
+#define _GENSTACK_H
 
-using namespace std;
 
-
-// README shows why all methods are in header file
 template <typename T>
 class GenStack // Based on the Last-in, First-out concept
 {
@@ -37,90 +37,6 @@ class GenStack // Based on the Last-in, First-out concept
     T *myStack; // A pointer to a value that will be determined based on set value, turned into an array
 };
 
-
-
-// The default constructor setting a type name for an array of 64
-template <typename T>
-GenStack<T>::GenStack()
-{
-  myStack = new T[64];
-  mSize = 64;
-  top = -1;
-}
-
-// Overloaded constructor that sets the size of the array for a type name
-template <typename T>
-GenStack<T>::GenStack(int maxSize)
-{
-  myStack = new T[maxSize];
-  mSize = maxSize;
-  top = -1;
-}
-
-// Destructor that destroys the pointer myStack
-template <typename T>
-GenStack<T>::~GenStack()
-{
-  delete []myStack;
-}
-
-// This function pushes a variable of a given type to the top of the stack
-template <typename T>
-void GenStack<T>::push(T data)
-{
-  // Must check to see if the array is full before adding it to the array
-  if (isFull() == true)
-  {
-    cout << "The stack is full" << endl;
-    exit(1);
-  }
-
-  myStack[++top] = data;
-}
-
-// This function returns the value at the top of the stack, then changes the top position
-template <typename T>
-T GenStack<T>::pop()
-{
-  // Must check if the array is empty because you can't pop a null value
-  try
-  {
-    if (isEmpty() == true) throw exception();
-  }
-  catch (exception e)
-  {
-    cout << "The stack is empty" << endl;
-
-    return myStack[0];
-  }
-
-  return myStack[top--]; // Changes to the next value of the stack; "the value bellow top"
-}
-
-// This function takes a look at the top of the stack, without changing the top position
-template <typename T>
-T GenStack<T>::peek()
-{
-  if (isEmpty() == true)
-  {
-    cout << "The stack is empty" << endl;
-
-    return myStack[0];
-  }
-
-  return myStack[top];
-}
-
-// Checks to see if the array set if full
-template <typename T>
-bool GenStack<T>::isFull()
-{
-  return (top == mSize - 1);
-}
-
-// Checks to see if the array set is empty
-template <typename T>
-bool GenStack<T>::isEmpty()
-{
-  return (top == -1);
-}
+// This is how you end the #define operation above to let the compiler know the
+// class has ended
+#endif
