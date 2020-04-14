@@ -21,7 +21,8 @@ TreeNode::TreeNode(int k)
 
 TreeNode::~TreeNode()
 {
-  
+  delete left;
+  delete right;
 }
 
 /*
