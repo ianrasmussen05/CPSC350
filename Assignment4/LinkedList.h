@@ -5,28 +5,33 @@
 // Assignment 4
 // LinkedList.h
 
-// This is the implementation of the double linked list
+// This is the implementation of the doubly linked list
 
 #ifndef _LINKEDLIST_H
 #define _LINKEDLIST_H
 
+template <typename T>
 class LinkedList
 {
   private:
-    ListNode *front;
-    ListNode *last;
+    ListNode<T> *front;
+    ListNode<T> *last;
     int size;
 
   public:
     LinkedList();
     ~LinkedList();
 
-    // Where the member functions will go
-
+    void insertFront(T data);
+    void insertBack(T data);
+    T removeFront();
+    T remove(T val);
+    T search(T val);
+    T removeAtPosition(int position);
 
     int getSize();
     bool isEmpty();
     void printList();
-}
+};
 
 #endif

@@ -1,4 +1,4 @@
-// Ian Rasmussen 
+// Ian Rasmussen
 // 2317200
 // irasmussen@chapman.edu
 // CPSC 350-01
@@ -8,6 +8,8 @@
 #ifndef _LISTNODE_H
 #define _LISTNODE_H
 
+template <typename T>
+
 class ListNode
 {
   private:
@@ -15,12 +17,12 @@ class ListNode
 
   public:
     ListNode();
-    ListNode(int d);
+    ListNode(T d);
     ~ListNode();
 
-    int data;
-    ListNode *next;
-    ListNode *prev;
-}
+    T data;
+    ListNode<T> *next;
+    ListNode<T> *prev;
+};
 
 #endif

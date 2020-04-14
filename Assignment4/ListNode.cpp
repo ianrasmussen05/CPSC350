@@ -12,23 +12,27 @@ using namespace std;
 
 #include "ListNode.h"
 
-
-ListNode::ListNode()
+template <typename T>
+ListNode<T>::ListNode()
 {
   data = 0;
   next = NULL;
   prev = NULL;
 }
 
-ListNode::ListNode(int d)
+template <typename T>
+ListNode<T>::ListNode(T d)
 {
   data = d;
   next = NULL;
   prev = NULL;
 }
 
-ListNode::~ListNode()
+template <typename T>
+ListNode<T>::~ListNode()
 {
   delete next;
   delete prev;
 }
+
+template class ListNode<int>;

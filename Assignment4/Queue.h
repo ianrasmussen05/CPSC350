@@ -1,6 +1,14 @@
+// Ian Rasmussen 
+// 2317200
+// irasmussen@chapman.edu
+// CPSC 350-01
+// Assignment 4
+// Queue.h
+
 #ifndef _QUEUE_H
 #define _QUEUE_H
 
+template <typename T>
 class Queue
 {
   private:
@@ -11,9 +19,9 @@ class Queue
     Queue(int maxSize);
     ~Queue();
 
-    void insert(int data);
-    char remove();
-    char peek();
+    void insert(T data);
+    T remove();
+    T peek();
 
     bool isFull();
     bool isEmpty();
@@ -25,7 +33,7 @@ class Queue
     int rear;
     int numElements;
 
-    char *myArray;
-}
+    T *myArray;
+};
 
 #endif
