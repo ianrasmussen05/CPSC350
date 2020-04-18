@@ -3,22 +3,20 @@
 
 using namespace std;
 
-#include "ListNode.h"
-#include "LinkedList.h"
-#include "Queue.h"
+#include "Simulation.h"
 
 int main(int argc, char **argv)
 {
-  LinkedList<int> *list = new LinkedList<int>();
+  Simulation *sim = new Simulation();
 
-  for (int i = 1; i <= 10; ++i)
+  if (argc < 2)
   {
-    list->insertBack(i);
+    cout << "There are not enough parameters in the console..." << endl;
+    return 0;
   }
 
-  list->printList();
 
-  delete list;
+  delete sim;
 
   return 0;
 }

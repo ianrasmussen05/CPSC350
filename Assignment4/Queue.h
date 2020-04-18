@@ -1,4 +1,4 @@
-// Ian Rasmussen 
+// Ian Rasmussen
 // 2317200
 // irasmussen@chapman.edu
 // CPSC 350-01
@@ -19,7 +19,7 @@ class Queue
     Queue(int maxSize);
     ~Queue();
 
-    void insert(T data);
+    void insert(T value);
     T remove();
     T peek();
 
@@ -28,12 +28,12 @@ class Queue
 
     int getSize();
 
-    int size;
-    int front;
-    int rear;
+    //int size;
+    //int front;
+    //int rear;
     int numElements;
 
-    T *myArray;
+    LinkedList<T> *myArray;
 };
 
 #endif

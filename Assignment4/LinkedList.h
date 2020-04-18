@@ -14,9 +14,9 @@ template <typename T>
 class LinkedList
 {
   private:
-    ListNode<T> *front;
-    ListNode<T> *last;
-    int size;
+    //ListNode<T> *front;
+    //ListNode<T> *last;
+    //int size;
 
   public:
     LinkedList();
@@ -32,6 +32,10 @@ class LinkedList
     int getSize();
     bool isEmpty();
     void printList();
+
+    ListNode<T> *front;
+    ListNode<T> *last;
+    int size;
 };
 
 #endif

@@ -10,56 +10,62 @@
 
 using namespace std;
 
+#include "ListNode.h"
+#include "LinkedList.h"
 #include "Queue.h"
 
 template <typename T>
 Queue<T>::Queue()
 {
-  myArray = new T[128];
-  size = 128;
+  myArray = new LinkedList<T>();
+  /*
+  size = 0;
   front = 0;
   rear = -1;
+  */
   numElements = 0;
 }
 
 template <typename T>
 Queue<T>::Queue(int maxSize)
 {
-  myArray = new T[maxSize];
+  myArray = new LinkedList<T>();
+  /*
   size = maxSize;
   front = 0;
   rear = -1;
+  */
   numElements = 0;
 }
 
 template <typename T>
 Queue<T>::~Queue()
 {
-  delete []myArray;
+  delete myArray;
 }
 
 template <typename T>
-void Queue<T>::insert(T data)
+void Queue<T>::insert(T value)
 {
-  myArray[++rear] = data;
+  myArray->insertBack(value);
   ++numElements;
 }
 
 template <typename T>
 T Queue<T>::remove()
 {
-  T temp = 0;
-  temp = myArray[front];
-  ++front;
+  ListNode<T> *temp = new ListNode<T>();
+  temp = myArray->front;
+  myArray->front = myArray->front->next;
   --numElements;
 
-  return temp;
+  return temp->data;
 }
 
 template <typename T>
 T Queue<T>::peek()
 {
-  return myArray[front];
+  return myArray->front->data;
 }
 
 template <typename T>
@@ -71,7 +77,7 @@ bool Queue<T>::isEmpty()
 template <typename T>
 bool Queue<T>::isFull()
 {
-  return (numElements == size);
+  return (numElements == myArray->size);
 }
 
 template <typename T>

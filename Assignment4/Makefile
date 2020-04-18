@@ -23,8 +23,8 @@ default: $(EXECUTABLE)
 
 # To create the executable file count we need the object files
 # GenStack.o, SyntaxCheck.o, and main.o:
-$(EXECUTABLE):  ListNode.o LinkedList.o Queue.o main.o
-	$(CC) $(CFLAGS) -o $(EXECUTABLE) ListNode.o LinkedList.o Queue.o main.o
+$(EXECUTABLE):  ListNode.o LinkedList.o Queue.o Student.o Window.o ReadFile.o Simulation.o main.o
+	$(CC) $(CFLAGS) -o $(EXECUTABLE) ListNode.o LinkedList.o Queue.o Student.o Window.o ReadFile.o Simulation.o main.o
 
 # To create the object file GenStack.o, we need the source files
 # GenStack.cpp and GenStack.h:
@@ -37,13 +37,24 @@ ListNode.o:  ListNode.cpp ListNode.h
 LinkedList.o:  LinkedList.cpp LinkedList.h ListNode.h
 	$(CC) $(CFLAGS) -c LinkedList.cpp
 
-
-Queue.o:  Queue.cpp Queue.h
+Queue.o:  Queue.cpp Queue.h LinkedList.cpp LinkedList.h ListNode.cpp ListNode.h
 	$(CC) $(CFLAGS) -c Queue.cpp
+
+Simulation.o: Simulation.cpp Simulation.h
+	$(CC) $(CFLAGS) -c Simulation.cpp
+
+Student.o: Student.cpp Student.h
+	$(CC) $(CFLAGS) -c Student.cpp
+
+Window.o: Window.cpp Window.h Student.cpp Student.h
+	$(CC) $(CFLAGS) -c Window.cpp
+
+ReadFile.o: ReadFile.cpp ReadFile.h
+	$(CC) $(CFLAGS) -c ReadFile.cpp
 
 # To create the object file main.o, we need the source files
 # main.cpp, GenStack.cpp, GenStack.h, SyntaxCheck.cpp, and SyntaxCheck.h:
-main.o: main.cpp ListNode.cpp ListNode.h LinkedList.cpp LinkedList.h
+main.o: main.cpp ListNode.cpp ListNode.h LinkedList.cpp LinkedList.h Queue.cpp Queue.h Simulation.cpp Simulation.h Student.cpp Student.h Window.cpp Window.h ReadFile.cpp ReadFile.h
 	$(CC) $(CFLAGS) -c main.cpp
 
 # Removes any files that end in .o to clean the folder
