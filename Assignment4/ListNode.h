@@ -8,8 +8,14 @@
 #ifndef _LISTNODE_H
 #define _LISTNODE_H
 
-template <typename T>
+#include <iostream>
+#include <string>
 
+using namespace std;
+
+
+
+template <typename T>
 class ListNode
 {
   private:
@@ -26,3 +32,27 @@ class ListNode
 };
 
 #endif
+
+
+template <typename T>
+ListNode<T>::ListNode()
+{
+  data = 0;
+  next = NULL;
+  prev = NULL;
+}
+
+template <typename T>
+ListNode<T>::ListNode(T d)
+{
+  data = d;
+  next = NULL;
+  prev = NULL;
+}
+
+template <typename T>
+ListNode<T>::~ListNode()
+{
+  delete next;
+  delete prev;
+}

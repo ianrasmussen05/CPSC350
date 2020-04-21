@@ -1,3 +1,10 @@
+// Ian Rasmussen
+// 2317200
+// irasmussen@chapman.edu
+// CPSC 350-01
+// Assignment 4
+// Student.h
+
 #ifndef _STUDENT_H
 #define _STUDENT_H
 
