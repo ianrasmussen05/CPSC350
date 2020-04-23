@@ -14,10 +14,11 @@ class Window
     // No private variables
 
   public:
-  Window();
-  ~Window();
+  Window(); // Consturctor
+  ~Window(); // Destructor
 
-  Student* currStudent;
+  int idleTime; // Integer representing the idle time of the window
+  Student* currStudent; // Creates a student pointer 
 };
 
 #endif

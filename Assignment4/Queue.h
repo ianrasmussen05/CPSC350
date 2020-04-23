@@ -15,7 +15,7 @@ using namespace std;
 
 #include "LinkedList.h"
 
-
+// A linked Queue class using a template abstract class
 
 template <typename T>
 class Queue
@@ -24,23 +24,23 @@ class Queue
     // No private variables
 
   public:
-    Queue();
-    Queue(int maxSize);
-    ~Queue();
+    Queue(); // Consturctor
+    Queue(int maxSize); // Overloaded constructor
+    ~Queue(); // Destructor
 
-    void insert(T value);
-    T remove();
-    T peek();
+    void insert(T value); // Insert function that inserts in the back
+    T remove(); // Removes and returns the front value
+    T peek(); // Returns the front value
 
-    bool isFull();
-    bool isEmpty();
+    bool isFull(); // Checks if Queue is full (Not needed for this assignment)
+    bool isEmpty(); // Checks if Queue is empty
 
-    int getSize();
+    int getSize(); // Gets the size of the Queue
 
-    int size;
+    int size; // integer representing size of queue
     int numElements;
 
-    LinkedList<T> *myArray;
+    LinkedList<T> *myArray; // A pointer of a linked list
 };
 
 #endif
@@ -71,41 +71,42 @@ Queue<T>::~Queue()
 template <typename T>
 void Queue<T>::insert(T value)
 {
-  myArray->insertBack(value);
+  // Inserts at the back of the list using the insertBack() function in the linked list class
   ++numElements;
+  myArray->insertBack(value);
 }
 
 template <typename T>
 T Queue<T>::remove()
 {
-  ListNode<T> *temp = new ListNode<T>();
-  temp = myArray->front;
-  myArray->front = myArray->front->next;
+  // Removes from the front of the queue using the removeFront() function in the linked list class
   --numElements;
-
-  return temp->data;
+  return myArray->removeFront();
 }
 
 template <typename T>
 T Queue<T>::peek()
 {
+  // Return data from front of the linked list
   return myArray->front->data;
 }
 
 template <typename T>
 bool Queue<T>::isEmpty()
 {
-  return (numElements == 0);
+  // Gets the size of list and compares it to zero, return True or false
+  return (myArray->getSize() == 0);
 }
 
 template <typename T>
 bool Queue<T>::isFull()
 {
-  return (numElements == myArray->size);
+  return (numElements == myArray->getSize());
 }
 
 template <typename T>
 int Queue<T>::getSize()
 {
-  return numElements;
+  // Calls onto the getSize() of the linked list 
+  return myArray->getSize();
 }

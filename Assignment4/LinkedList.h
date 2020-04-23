@@ -17,34 +17,32 @@ using namespace std;
 
 #include "ListNode.h"
 
-
+// A basic doubly linked list class using template abstract classes
 
 template <typename T>
 class LinkedList
 {
   private:
-    //ListNode<T> *front;
-    //ListNode<T> *last;
-    //int size;
+    // No private variables
 
   public:
-    LinkedList();
-    ~LinkedList();
+    LinkedList(); // constructor
+    ~LinkedList(); // Destructor
 
-    void insertFront(T data);
-    void insertBack(T data);
-    T removeFront();
-    T remove(T val);
-    T search(T val);
-    T removeAtPosition(int position);
+    void insertFront(T data); // Inserts a value at the front of the list
+    void insertBack(T data); // Inserts a value at the back of the list
+    T removeFront(); // Removes the value at the front of the list
+    T remove(T val); // Removes a value in the list
+    T search(T val); // Searches and returns the position in the list
+    T removeAtPosition(int position); // Searches and returns the value at the position in the list
 
-    int getSize();
-    bool isEmpty();
-    void printList();
+    int getSize(); // Returns size of list
+    bool isEmpty(); // Checks if the list has any nodes
+    void printList(); // Prints the list of nodes
 
-    ListNode<T> *front;
-    ListNode<T> *last;
-    int size;
+    ListNode<T> *front; // A pointer to keep track of front node
+    ListNode<T> *last; // A pointer to keep track of the last node
+    int size; // Integer representing size of list
 };
 
 #endif
@@ -68,20 +66,20 @@ LinkedList<T>::~LinkedList()
 template <typename T>
 void LinkedList<T>::insertFront(T data)
 {
-  ListNode<T> *node = new ListNode<T>(data);
+  ListNode<T> *node = new ListNode<T>(data); // create a node
 
-  if (isEmpty())
+  if (isEmpty()) // Checks if list is empty
   {
-    last = node;
+    last = node; // Replaces last position as node
   }
   else
   {
-    front->prev = node;
-    last->next = node;
+    front->prev = node; // Replaces node previous from front as node
+    last->next = node; // Replaces node next from last node to the data
   }
 
-  front = node;
-  size++;
+  front = node; // Changes the front node to the input
+  size++; // Update size
 }
 
 template <typename T>
@@ -99,8 +97,8 @@ void LinkedList<T>::insertBack(T data)
     node->prev = last;
   }
 
-  last = node;
-  size++;
+  last = node; // Changes the last node to the input
+  size++; // Update size
 }
 
 template <typename T>
@@ -247,19 +245,20 @@ bool LinkedList<T>::isEmpty()
 }
 
 template <typename T>
-void LinkedList<T>::printList()
+void LinkedList<T>::printList() // Iterates through the entire list and prints each node data
 {
   ListNode<T> *curr = front;
 
-  if (isEmpty())
+  if (isEmpty()) // Must check if list is empty first
   {
     cout << "The list is empty" << endl;
     return;
   }
 
+  // Iterates through the list and checks if value is not null
   while (curr != NULL)
   {
-    cout << curr->data << endl;
+    cout << curr->data << endl; // Prints then goes to next value in list
 
     curr = curr->next;
   }

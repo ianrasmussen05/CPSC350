@@ -14,7 +14,8 @@ using namespace std;
 
 Window::Window()
 {
-  currStudent = NULL;
+  idleTime = 0;
+  currStudent = NULL; // the student must be NULL
 }
 
 Window::~Window()

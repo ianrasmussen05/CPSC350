@@ -17,17 +17,22 @@ class Simulation
     int studentsArrive;
     int minAtWindow;
 
-    Queue<Student*> *list;
+    Queue<Student*> *queue;
+    LinkedList<Student*> *list;
+    LinkedList<Student*> *finalList;
     Window *window;
 
   public:
-    Simulation();
-    Simulation(string file);
-    ~Simulation();
+    Simulation(); // Consturctor
+    Simulation(string file); // Overloaded Consturctor
+    ~Simulation(); // Destructor
 
-    void readFromFile();
-    void runProgram();
-    void statistics();
+    void readFromFile(); // Function to read from a file
+    void runProgram(); // Function that runs the simulation with the specific tasks
+    void statistics(); // Function that prints out statistics from runProgram()
+
+    bool allWindowsOpen(); // Checks to see if all the windows are open
+    bool allWindowsClosed(); // Checks to see if all windows are closed
 
     // Setters for private variables
     void setFileName(string fileName);
@@ -35,7 +40,6 @@ class Simulation
     void setTime(int time);
     void setStudentsArrive(int studentsArrive);
     void setMinAtWindow(int minAtWindow);
-    void *setList(Queue<Student*> *list);
 
     // Getters for private variables
     string getFileName();
@@ -43,7 +47,8 @@ class Simulation
     int getTime();
     int getStudentsArrive();
     int getMinAtWindow();
-    Queue<Student*> *getList();
+    Queue<Student*> *getQueue();
+    LinkedList<Student*> *getList();
 };
 
 #endif

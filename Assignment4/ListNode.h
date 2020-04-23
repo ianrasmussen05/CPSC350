@@ -13,7 +13,7 @@
 
 using namespace std;
 
-
+// Just a basic list node class using template abstract class
 
 template <typename T>
 class ListNode
@@ -22,13 +22,13 @@ class ListNode
     // No private variables
 
   public:
-    ListNode();
-    ListNode(T d);
-    ~ListNode();
+    ListNode(); // Default constructor
+    ListNode(T d); // Overloaded constructor
+    ~ListNode(); // Destructor
 
-    T data;
-    ListNode<T> *next;
-    ListNode<T> *prev;
+    T data; // A template variable of data
+    ListNode<T> *next; // Listnode for the left
+    ListNode<T> *prev; // ListNode for the right
 };
 
 #endif

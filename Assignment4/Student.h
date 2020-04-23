@@ -14,12 +14,14 @@ class Student
     // No private variables
 
   public:
-    Student();
-    Student(int needed, int arrived);
-    ~Student();
+    Student(); // Consturctor
+    Student(int needed, int arrived, int wait); // Overloaded constructor
+    ~Student(); // Destructor
 
-    int timeNeeded;
-    int timeArrived;
+    int timeNeeded; // Integer for the time needed for the student
+    int timeArrived; // Integer for the time the student arrived at
+    int waitTime; // Integer for the wait time of the student
+    bool isInWindow; // Boolean checking if the student is in a window
 };
 
 #endif

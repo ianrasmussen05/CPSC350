@@ -16,12 +16,16 @@ Student::Student()
 {
   timeNeeded = 0;
   timeArrived = 0;
+  waitTime = 0;
+  isInWindow = false;
 }
 
-Student::Student(int needed, int arrived)
+Student::Student(int needed, int arrived, int wait)
 {
   timeNeeded = needed;
   timeArrived = arrived;
+  waitTime = wait;
+  isInWindow = false;
 }
 
 Student::~Student()
