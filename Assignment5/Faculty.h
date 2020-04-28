@@ -1,3 +1,10 @@
+// Ian Rasmussen
+// 2317200
+// irasmussen@chapman.edu
+// CPSC 350-01
+// Assignment 5
+// Faculty.h
+
 #ifndef _FACULTY_H
 #define _FACULTY_H
 
@@ -8,11 +15,11 @@ class Faculty
     string name;
     string level;
     string department;
-    int numOfStudents;
+    LinkedList<Student*> *listOfStudents;
 
   public:
     Faculty();
-    Faculty(int id, string name, string level, string department, int numOfStudents);
+    Faculty(int id, string name, string level, string department, LinkedList<Student*> *listOfStudents);
     ~Faculty();
 
     // Getters
@@ -20,14 +27,13 @@ class Faculty
     string getName();
     string getLevel();
     string getDepartment();
-    int getNumOfStudents();
+    LinkedList<Student*> *getListOfStudents();
 
     // Setters
     void setID(int id);
     void setName(string name);
     void setLevel(string level);
     void setDepartment(string department);
-    void setNumOfStudents(int numOfStudents);
 };
 
 #endif

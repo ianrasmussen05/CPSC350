@@ -34,18 +34,19 @@ Student.o: Student.cpp Student.h
 
 # To create the object file Window.o, we need the source files
 # Faculty.cpp, Faculty.h:
-Faculty.o: Faculty.cpp Faculty.h
+Faculty.o: Faculty.cpp Faculty.h Student.cpp Student.h ListNode.h LinkedList.h
 	$(CC) $(CFLAGS) -c Faculty.cpp
 
 # To create the object file main.o, we need the source files
 # Simulation.cpp, Simulation.h:
-Simulation.o: Simulation.cpp Simulation.h
+Simulation.o: Simulation.cpp Simulation.h TreeNode.h BinarySearchTree.h ListNode.h LinkedList.h Student.cpp Student.h Faculty.cpp Faculty.h
 	$(CC) $(CFLAGS) -c Simulation.cpp
 
 # To create the object file main.o, we need the source files
 # main.cpp, ListNode.h, LinkedList.h, Queue.h, Student.cpp, Student.h, Window.cpp, Window.h, Simulation.cpp, and Simulation.h:
-main.o: main.cpp TreeNode.h BinarySearchTree.h Student.cpp Student.h Faculty.cpp Faculty.h Simulation.cpp Simulation.h
+main.o: main.cpp TreeNode.h BinarySearchTree.h ListNode.h LinkedList.h Student.cpp Student.h Faculty.cpp Faculty.h Simulation.cpp Simulation.h
 	$(CC) $(CFLAGS) -c main.cpp
+
 
 # Removes any files that end in .ghc and .o to clean the folder
 clean:

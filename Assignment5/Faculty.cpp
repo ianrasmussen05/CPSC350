@@ -1,8 +1,17 @@
+// Ian Rasmussen
+// 2317200
+// irasmussen@chapman.edu
+// CPSC 350-01
+// Assignment 5
+// Faculty.cpp
+
 #include <iostream>
 #include <string>
 
 using namespace std;
 
+#include "LinkedList.h"
+#include "Student.h"
 #include "Faculty.h"
 
 Faculty::Faculty()
@@ -11,21 +20,21 @@ Faculty::Faculty()
   name = "\0";
   level = "\0";
   department = "\0";
-  numOfStudents = 0;
+  listOfStudents = new LinkedList<Student*>();
 }
 
-Faculty::Faculty(int id, string name, string level, string department, int numOfStudents)
+Faculty::Faculty(int id, string name, string level, string department, LinkedList<Student*> *listOfStudents)
 {
   this->id = id;
   this->name = name;
   this->level = level;
   this->department = department;
-  this->numOfStudents = numOfStudents;
+  this->listOfStudents = listOfStudents;
 }
 
 Faculty::~Faculty()
 {
-
+  delete listOfStudents;
 }
 
 
@@ -50,9 +59,9 @@ string Faculty::getDepartment()
   return department;
 }
 
-int Faculty::getNumOfStudents()
+LinkedList<Student*> *Faculty::getListOfStudents()
 {
-  return numOfStudents;
+  return listOfStudents;
 }
 
 
@@ -75,9 +84,4 @@ void Faculty::setLevel(string level)
 void Faculty::setDepartment(string department)
 {
   this->department = department;
-}
-
-void Faculty::setNumOfStudents(int numOfStudents)
-{
-  this->numOfStudents = numOfStudents;
 }

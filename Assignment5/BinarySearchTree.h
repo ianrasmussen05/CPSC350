@@ -1,3 +1,10 @@
+// Ian Rasmussen
+// 2317200
+// irasmussen@chapman.edu
+// CPSC 350-01
+// Assignment 5
+// BinarySearchTree.h
+
 #ifndef _BINARYSEARCHTREE_H
 #define _BINARYSEARCHTREE_H
 

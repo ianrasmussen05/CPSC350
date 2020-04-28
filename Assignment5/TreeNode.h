@@ -1,3 +1,10 @@
+// Ian Rasmussen 
+// 2317200
+// irasmussen@chapman.edu
+// CPSC 350-01
+// Assignment 5
+// TreeNode.h
+
 #ifndef _TREENODE_H
 #define _TREENODE_H
 
