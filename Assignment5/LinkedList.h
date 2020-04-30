@@ -33,6 +33,7 @@ class LinkedList
     int removeAtPosition(int position);
 
     unsigned int getSize();
+    ListNode<T> *getFront();
     bool isEmpty();
     void printList();
 };
@@ -57,6 +58,12 @@ template <typename T>
 unsigned int LinkedList<T>::getSize()
 {
   return size;
+}
+
+template <typename T>
+ListNode<T> *LinkedList<T>::getFront()
+{
+  return front;
 }
 
 template <typename T>

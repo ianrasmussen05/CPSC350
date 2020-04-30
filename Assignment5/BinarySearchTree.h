@@ -28,9 +28,10 @@ class BinarySearchTree
     bool isEmpty(); // Returns true or false if the tree is empty
     TreeNode<T> *getMin(); // Gets the minimum value
     TreeNode<T> *getMax(); // Gets the maximum value
+    TreeNode<T> *getRoot();
 
     TreeNode<T> *getSuccessor(TreeNode<T> *d);
-    void inOrder(); // This prints the tree in ascending order
+    void inOrder(TreeNode<T> *n); // This prints the tree in ascending order
 };
 
 #endif
@@ -307,17 +308,21 @@ TreeNode<T> *BinarySearchTree<T>::getMax()
   return curr;
 }
 
+template <typename T>
+TreeNode<T> *BinarySearchTree<T>::getRoot()
+{
+  return root;
+}
+
 // In this case, I will be printing in the inorder transversal format because
 // it prints the nodes from ascending order (min to max)
 template <typename T>
-void BinarySearchTree<T>::inOrder()
+void BinarySearchTree<T>::inOrder(TreeNode<T> *n)
 {
-  TreeNode<T> *curr = root;
-
-  if (curr != NULL)
+  if (n != NULL)
   {
-    inOrder(curr->left);
-    cout << curr->key << endl;
-    inOrder(curr->right);
+    inOrder(n->left);
+    cout << n->key << endl;
+    inOrder(n->right);
   }
 }

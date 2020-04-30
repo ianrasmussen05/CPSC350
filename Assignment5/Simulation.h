@@ -23,8 +23,8 @@ class Simulation
     void readStudentFile(); // Reads student file
     void readFacultyFile(); // Reads faculty file
 
-    void printAllStudents(); // (1) printed out students in ascending order by ID
-    void printAllFaculty(); // (2) prints out all faculty in ascending order by ID
+    void printAllStudents(TreeNode<Student*> *n); // (1) printed out students in ascending order by ID
+    void printAllFaculty(TreeNode<Faculty*> *n); // (2) prints out all faculty in ascending order by ID
     void findStudent(int id); // (3) finds a specific student given ID
     void findFaculty(int id); // (4) finds a specific faculty member given the ID
     void printAdvisor(int id); // (5) finds and prints the students advior given the ID

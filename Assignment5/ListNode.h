@@ -11,12 +11,13 @@
 template <typename T>
 class ListNode
 {
-  T data;
-  ListNode<T> *next;
+  public:
+    T data;
+    ListNode<T> *next;
 
-  ListNode(); // Default constructor
-  ListNode(T d); // Overloaded constructor
-  ~ListNode(); // Destructor
+    ListNode(); // Default constructor
+    ListNode(T d); // Overloaded constructor
+    ~ListNode(); // Destructor
 };
 
 #endif

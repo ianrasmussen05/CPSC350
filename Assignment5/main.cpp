@@ -21,6 +21,10 @@ int main(int argc, char** argv)
 {
   Simulation *sim = new Simulation();
 
+  sim->setStudentFile("studentTable.txt");
+  sim->setFacultyFile("facultyTable.txt");
+
+
   sim->runProgram();
 
   delete sim;
