@@ -19,9 +19,9 @@ class Student
     int advisor;
 
   public:
-    Student();
-    Student(int id, string name, string level, string major, double gpa, int advisor);
-    ~Student();
+    Student(); // Default constructor
+    Student(int id, string name, string level, string major, double gpa, int advisor); // Overloaded constructor
+    ~Student(); // Destructor
 
     // Getters
     int getID();

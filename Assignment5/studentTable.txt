@@ -1,1 +1,4 @@
+54321, hehe man, Freshman, Business, 4.0, 5555555
 2317200, Ian Rasmussen, Sophomore, Computer Science, 3.2, 5555555
+1, da boogieman, senior, art, 2.0, 9999999
+254672, Jimmy John, Junior, Art, 3.1, 5555555

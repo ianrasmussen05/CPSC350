@@ -27,20 +27,20 @@ class LinkedList
     LinkedList(); // Default constructor
     ~LinkedList(); // Destructor
 
-    void insertFront(T data);
-    int removeFront();
+    void insertFront(T data); // Inserts a value in the front of the list
+    int removeFront(); // Removes the front node
     int search(T value); // can return value or position of value
     int removeAtPosition(int position);
 
-    unsigned int getSize();
-    ListNode<T> *getFront();
-    bool isEmpty();
-    void printList();
+    unsigned int getSize(); // Returns the size
+    ListNode<T> *getFront(); // Returns the front node
+    bool isEmpty(); // Checks if the list is empty
+    void printList(); // Prints list, one by one
 };
 
 #endif
 
-
+// Default constructor
 template <typename T>
 LinkedList<T>::LinkedList()
 {
@@ -48,30 +48,35 @@ LinkedList<T>::LinkedList()
   size = 0;
 }
 
+// Destructor
 template <typename T>
 LinkedList<T>::~LinkedList()
 {
   //delete front;
 }
 
+// Returns the size of list
 template <typename T>
 unsigned int LinkedList<T>::getSize()
 {
   return size;
 }
 
+// Returns the front node of list
 template <typename T>
 ListNode<T> *LinkedList<T>::getFront()
 {
   return front;
 }
 
+// Checks to see if the list is empty
 template <typename T>
 bool LinkedList<T>::isEmpty()
 {
   return (size == 0);
 }
 
+// Prints the entire list, starting at front
 template <typename T>
 void LinkedList<T>::printList()
 {
@@ -84,6 +89,7 @@ void LinkedList<T>::printList()
   }
 }
 
+// Insert a node to the front of the list
 template <typename T>
 void LinkedList<T>::insertFront(T d)
 {
@@ -92,7 +98,7 @@ void LinkedList<T>::insertFront(T d)
   node->next = front;
   front = node;
 }
-
+ // Removes the node at the front of the list
 template <typename T>
 int LinkedList<T>::removeFront()
 {
@@ -101,11 +107,12 @@ int LinkedList<T>::removeFront()
   front = front->next;
   ft->next = NULL;
   delete ft;
-  --size;
+  --size; // Size is less
 
   return temp;
 }
 
+// Searches to determine if the node is in the list, compares ID
 template <typename T>
 int LinkedList<T>::search(T value)
 {
@@ -117,7 +124,7 @@ int LinkedList<T>::search(T value)
     // Iterate and attempt to find the value
     ++position;
 
-    if (curr->data == value)
+    if (curr->data->getID() == value->getID())
     {
       break;  // If i find it
     }
@@ -135,6 +142,7 @@ int LinkedList<T>::search(T value)
   return position;
 }
 
+// Remove a node at the given position
 template <typename T>
 int LinkedList<T>::removeAtPosition(int position)
 {

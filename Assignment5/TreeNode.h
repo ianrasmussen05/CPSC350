@@ -1,4 +1,4 @@
-// Ian Rasmussen 
+// Ian Rasmussen
 // 2317200
 // irasmussen@chapman.edu
 // CPSC 350-01
@@ -20,8 +20,8 @@ class TreeNode
     // No private variables
 
   public:
-    TreeNode();
-    TreeNode(T k);
+    TreeNode(); // Construcor
+    TreeNode(T k); // Overloaded constructor
     // TreeNode(int k, <type> value);
     ~TreeNode();
     // virtual ~TreeNode(); // Research virtual
@@ -33,7 +33,7 @@ class TreeNode
 
 #endif
 
-
+// Default constructor
 template <typename T>
 TreeNode<T>::TreeNode()
 {
@@ -42,6 +42,7 @@ TreeNode<T>::TreeNode()
   right = NULL;
 }
 
+// Overloaded Construcor
 template <typename T>
 TreeNode<T>::TreeNode(T k)
 {
@@ -50,6 +51,7 @@ TreeNode<T>::TreeNode(T k)
   right = NULL;
 }
 
+// Destructor
 template <typename T>
 TreeNode<T>::~TreeNode()
 {

@@ -15,12 +15,12 @@ class Faculty
     string name;
     string level;
     string department;
-    LinkedList<Student*> *listOfStudents;
+    LinkedList<Student*> *listOfStudents; // List of advisees
 
   public:
-    Faculty();
-    Faculty(int id, string name, string level, string department, LinkedList<Student*> *listOfStudents);
-    ~Faculty();
+    Faculty(); // Default constructor
+    Faculty(int id, string name, string level, string department, LinkedList<Student*> *listOfStudents); // Overloaded constructor
+    ~Faculty(); // Destructor
 
     // Getters
     int getID();

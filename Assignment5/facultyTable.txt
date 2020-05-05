@@ -1,1 +1,3 @@
-5555555, Rene German, Professor, School of Engineering, 2317200,
+5555555, Rene German, Professor, School of Engineering, 2317200, 54321, 
+9999999, Howdy Kyle, Lecturer, Business, 2317200,
+1, oh no, whoKnows, Chicken, 2317200,

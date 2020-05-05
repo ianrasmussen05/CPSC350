@@ -12,6 +12,8 @@ using namespace std;
 
 #include "Student.h"
 
+
+// Default constructor
 Student::Student()
 {
   id = 0;
@@ -22,6 +24,7 @@ Student::Student()
   advisor = 0;
 }
 
+// Overloaded constructor
 Student::Student(int id, string name, string level, string major, double gpa, int advisor)
 {
   this->id = id;
@@ -32,6 +35,7 @@ Student::Student(int id, string name, string level, string major, double gpa, in
   this->advisor = advisor;
 }
 
+// Destructor
 Student::~Student()
 {
 

@@ -23,6 +23,7 @@ class ListNode
 #endif
 
 
+// Default constructor
 template <typename T>
 ListNode<T>::ListNode()
 {
@@ -30,6 +31,7 @@ ListNode<T>::ListNode()
   next = NULL;
 }
 
+// Overloaded constructor
 template <typename T>
 ListNode<T>::ListNode(T d)
 {
@@ -37,6 +39,7 @@ ListNode<T>::ListNode(T d)
   next = NULL;
 }
 
+// Destructor
 template <typename T>
 ListNode<T>::~ListNode()
 {

@@ -17,8 +17,8 @@ class BinarySearchTree
     TreeNode<T> *root;
 
   public:
-    BinarySearchTree();
-    ~BinarySearchTree();
+    BinarySearchTree(); // Default Construcor
+    ~BinarySearchTree(); // Destructor
     // virtual ~BST(); - when working with template class
 
     void insert(T value); // Insert a node
@@ -30,24 +30,27 @@ class BinarySearchTree
     TreeNode<T> *getMax(); // Gets the maximum value
     TreeNode<T> *getRoot();
 
-    TreeNode<T> *getSuccessor(TreeNode<T> *d);
+    TreeNode<T> *getSuccessor(TreeNode<T> *d); // Finds the successor of two child nodes
     void inOrder(TreeNode<T> *n); // This prints the tree in ascending order
 };
 
 #endif
 
+// Default constructor
 template <typename T>
 BinarySearchTree<T>::BinarySearchTree()
 {
   root = NULL;
 }
 
+// Destructor
 template <typename T>
 BinarySearchTree<T>::~BinarySearchTree()
 {
   delete root;
 }
 
+// This function inserts a tree node into the tree, by comparing the ID
 template <typename T>
 void BinarySearchTree<T>::insert(T value)
 {
@@ -67,7 +70,7 @@ void BinarySearchTree<T>::insert(T value)
       // Finding insertion point
       parent = curr;
 
-      if (value < curr->key) // This goes to the left value
+      if (value->getID() < curr->key->getID()) // This goes to the left value
       {
         curr = curr->left;
 
@@ -91,6 +94,7 @@ void BinarySearchTree<T>::insert(T value)
   }
 }
 
+// This function returns true or false if the tree node exists, searches by ID
 template <typename T>
 bool BinarySearchTree<T>::search(T value)
 {
@@ -102,18 +106,18 @@ bool BinarySearchTree<T>::search(T value)
   {
     TreeNode<T> *curr = root;
 
-    while (curr->key != value)
+    while (curr->key->getID() != value->getID()) // Checks to see if they are not equal
     {
-      if (value < curr->key)
+      if (value->getID() < curr->key->getID()) // Goes to the left node
       {
         curr = curr->left;
       }
-      else
+      else // Goes to the right node
       {
         curr = curr->right;
       }
 
-      if (curr == NULL)
+      if (curr == NULL) // There is no value in current node, does not exist
       {
         return false;
       }

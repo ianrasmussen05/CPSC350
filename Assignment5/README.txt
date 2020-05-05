@@ -12,7 +12,9 @@ Challenges:
 
 Resources:
 The first [1] source gave me a better understanding of binary trees and how they are used.
-The second [2] showed me how the successor is implemented in the BST.
+The second [2] showed me how the successor is implemented in the BST. The third [3] showed me
+how to append a line to a file.
 
 [1] Data Structures and Algorithms in C++ Textbook
 [2] http://www.mathcs.emory.edu/~cheung/Courses/171/Syllabus/9-BinTree/BST-delete2.html
+[3] https://www.codespeedy.com/add-a-new-line-to-text-file-in-cpp/

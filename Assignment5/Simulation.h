@@ -13,8 +13,8 @@ class Simulation
   private:
     string studentFile;
     string facultyFile;
-    BinarySearchTree<Student*> *studentTree;
-    BinarySearchTree<Faculty*> *facultyTree;
+    BinarySearchTree<Student*> *studentTree; // Student Tree
+    BinarySearchTree<Faculty*> *facultyTree; // Faculty Tree
 
   public:
     Simulation(); // Constructor

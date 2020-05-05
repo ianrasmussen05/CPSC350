@@ -14,6 +14,8 @@ using namespace std;
 #include "Student.h"
 #include "Faculty.h"
 
+
+// Default constructor
 Faculty::Faculty()
 {
   id = 0;
@@ -23,6 +25,7 @@ Faculty::Faculty()
   listOfStudents = new LinkedList<Student*>();
 }
 
+// Overloaded Construcor
 Faculty::Faculty(int id, string name, string level, string department, LinkedList<Student*> *listOfStudents)
 {
   this->id = id;
@@ -32,6 +35,7 @@ Faculty::Faculty(int id, string name, string level, string department, LinkedLis
   this->listOfStudents = listOfStudents;
 }
 
+// Destructor
 Faculty::~Faculty()
 {
   delete listOfStudents;
