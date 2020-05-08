@@ -22,11 +22,11 @@ Faculty::Faculty()
   name = "\0";
   level = "\0";
   department = "\0";
-  listOfStudents = new LinkedList<Student*>();
+  listOfStudents = new LinkedList<int>();
 }
 
 // Overloaded Construcor
-Faculty::Faculty(int id, string name, string level, string department, LinkedList<Student*> *listOfStudents)
+Faculty::Faculty(int id, string name, string level, string department, LinkedList<int> *listOfStudents)
 {
   this->id = id;
   this->name = name;
@@ -63,7 +63,7 @@ string Faculty::getDepartment()
   return department;
 }
 
-LinkedList<Student*> *Faculty::getListOfStudents()
+LinkedList<int> *Faculty::getListOfStudents()
 {
   return listOfStudents;
 }

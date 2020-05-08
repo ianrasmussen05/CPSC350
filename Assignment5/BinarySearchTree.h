@@ -145,11 +145,11 @@ bool BinarySearchTree<T>::deleteNode(T k)
     bool isLeft = true;
 
     // Must search to find the tree node first
-    while (curr->key != k)
+    while (curr->key->getID() != k->getID())
     {
       parent = curr;
 
-      if (k < curr->key) // Goes to the left child
+      if (k->getID() < curr->key->getID()) // Goes to the left child
       {
         isLeft = true;
         curr = curr->left;
@@ -171,7 +171,7 @@ bool BinarySearchTree<T>::deleteNode(T k)
     // No children, leaf TreeNode
     if (curr->left == NULL && curr->right == NULL)
     {
-      if (curr == root) // Nulls the root value and tree is empty
+      if (curr->key->getID() == root->key->getID()) // Nulls the root value and tree is empty
       {
         root = NULL;
       }
@@ -186,7 +186,7 @@ bool BinarySearchTree<T>::deleteNode(T k)
     }
     else if (curr->right == NULL) // There is one child, and the child is left
     {
-      if (curr == root) // Checks if the searched value is the root
+      if (curr->key->getID() == root->key->getID()) // Checks if the searched value is the root
       {
         root = curr->left; // Changes the root to the left child
       }
@@ -201,7 +201,7 @@ bool BinarySearchTree<T>::deleteNode(T k)
     }
     else if (curr->left == NULL) // There is one child, and the child is right
     {
-      if (curr == root) // If the current value is the root
+      if (curr->key->getID() == root->key->getID()) // If the current value is the root
       {
         root = curr->right; // Replace root as right child
       }
@@ -219,7 +219,7 @@ bool BinarySearchTree<T>::deleteNode(T k)
       // Must find the successor
       TreeNode<T> *successor = getSuccessor(curr);
 
-      if (curr == root) // If the searched value is the root
+      if (curr->key->getID() == root->key->getID()) // If the searched value is the root
       {
         root = successor; // Make root the successor
       }
@@ -258,7 +258,7 @@ TreeNode<T>* BinarySearchTree<T>::getSuccessor(TreeNode<T> *d)
     curr = curr->left;
   }
 
-  if (successor != d->right)
+  if (successor->key->getID() != d->right->key->getID())
   {
     sp->left = successor->right;
     successor->right = d->right;

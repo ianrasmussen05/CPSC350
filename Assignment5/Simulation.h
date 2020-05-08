@@ -40,6 +40,11 @@ class Simulation
     // (14) is to exit the program
 
     void runProgram(); // This runs the entire program using the functions above
+    void updateStudentFile(); // This will update and print all the data into the student file
+    void updateFacultyFile();// This will update and print all the data into the student file
+
+    string studentPreOrderPrint(TreeNode<Student*> *n, string &s);
+    string facultyPreOrderPrint(TreeNode<Faculty*> *n, string &s);
 
     // Getters
     string getStudentFile();

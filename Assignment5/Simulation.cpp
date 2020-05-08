@@ -200,7 +200,7 @@ void Simulation::readFacultyFile()
       string department = "\0";
       int adviseeID = 0;
       string stringAdvisee = "\0";
-      LinkedList<Student*> *advisees = new LinkedList<Student*>();
+      LinkedList<int> *advisees = new LinkedList<int>();
 
       for (unsigned int i = 0; i < line.size(); ++i) // Goes through the entire line
       {
@@ -263,7 +263,7 @@ void Simulation::readFacultyFile()
               }
               else
               {
-                advisees->insertFront(temp->key); // Once found, insert into the list
+                advisees->insertFront(temp->key->getID()); // Once found, insert into the list
                 break;
               }
 
@@ -318,10 +318,10 @@ void Simulation::printAllFaculty(TreeNode<Faculty*> *n)
     cout << ", Level: " << n->key->getLevel() << ", Major: " << n->key->getDepartment();
     cout << ", List of Advisees: ";
 
-    ListNode<Student*> *curr = n->key->getListOfStudents()->getFront();
+    ListNode<int> *curr = n->key->getListOfStudents()->getFront();
     while(curr != NULL) // This prints the list of advisees
     {
-      cout << curr->data->getID() << " ";
+      cout << curr->data << " ";
       curr = curr->next;
     }
 
@@ -389,10 +389,10 @@ void Simulation::findFaculty(int id)
       cout << ", Level: " << temp->key->getLevel() << ", Major: " << temp->key->getDepartment();
       cout << ", List of Advisees: ";
 
-      ListNode<Student*> *curr = temp->key->getListOfStudents()->getFront();
+      ListNode<int> *curr = temp->key->getListOfStudents()->getFront();
       while(curr != NULL) // Print the advisees in the list
       {
-        cout << curr->data->getID() << " ";
+        cout << curr->data << " ";
         curr = curr->next;
       }
 
@@ -464,10 +464,10 @@ void Simulation::printAdvisees(int id)
     {
       cout << "List of Advisees: ";
 
-      ListNode<Student*> *curr = temp->key->getListOfStudents()->getFront();
+      ListNode<int> *curr = temp->key->getListOfStudents()->getFront();
       while(curr != NULL) // Prints all advisees
       {
-        cout << curr->data->getID() << " ";
+        cout << curr->data << " ";
         curr = curr->next;
       }
 
@@ -526,6 +526,13 @@ void Simulation::addStudent()
     runProgram();
   }
 
+  if (studentID < 1000000 || studentID > 9999999)
+  {
+    cout << "Invalid ID: Must be 1000000 - 9999999" << endl;
+    cout << endl;
+    runProgram();
+  }
+
 
   cout << "Enter the students name (first and last name): ";
   cin >> studentNameFirst;
@@ -544,6 +551,35 @@ void Simulation::addStudent()
 
   cout << "Enter the students advisor ID: ";
   cin >> studentAdvisor;
+
+
+  getFacultyTree();
+
+  TreeNode<Faculty*> *temp = facultyTree->getRoot();
+
+  while (temp != NULL)
+  {
+    if (studentAdvisor < temp->key->getID()) // Goes left
+    {
+      temp = temp->left;
+    }
+    else if (studentAdvisor > temp->key->getID()) // Goes right
+    {
+      temp = temp->right;
+    }
+    else // Finds student
+    {
+      temp->key->getListOfStudents()->insertFront(studentID); // Adds the student to the list
+      break;
+    }
+
+    if (temp == NULL) // If the student doesn't exist
+    {
+      cout << "The faculty does not exist" << endl;
+      cout << endl;
+      runProgram();
+    }
+  }
 
   // Create new instance of student
   Student *addStudent = new Student(studentID, fullName, studentLevel, studentMajor, studentGPA, studentAdvisor);
@@ -577,7 +613,55 @@ void Simulation::addStudent()
 // This function deletes a student given the students id
 void Simulation::deleteStudent(int id)
 {
+  getStudentTree();
 
+  Student *tempStudent = new Student(); // Create new instance of student
+  tempStudent->setID(id); // Set id to compare one similar
+
+  if (studentTree->search(tempStudent)) // The student exists
+  {
+    delete tempStudent;
+  }
+  else // The student does not exist
+  {
+    cout << "The student does not exist" << endl;
+    cout << endl;
+    runProgram();
+  }
+
+
+  TreeNode<Student*> *stud = studentTree->getRoot();
+  int advisorID = 0;
+
+  while (stud != NULL) // Iterates to check if the student exists
+  {
+    if (id < stud->key->getID()) // Goes left
+    {
+      stud = stud->left;
+    }
+    else if (id > stud->key->getID()) // Goes right
+    {
+      stud = stud->right;
+    }
+    else // Finds student
+    {
+      advisorID = stud->key->getAdvisor(); // Stores the advisors ID to delete from their list
+
+      removeAdvisee(id, advisorID);
+
+      studentTree->deleteNode(stud->key); // Deletes the node
+      break;
+    }
+
+    if (stud == NULL)
+    {
+      cout << "The student does not exist" << endl;
+      cout << endl;
+      runProgram();
+    }
+  }
+
+  cout << "The Student was deleted successfully" << endl;
 }
 
 // Adds a faculty to the database, asks the user for the users needed inputs
@@ -596,7 +680,7 @@ void Simulation::addFaculty()
   string facultyDepartment = "\0";
   string facultyAdvisees = "\0";
   int adviseeID = 0;
-  LinkedList<Student*> *addList = new LinkedList<Student*>();
+  LinkedList<int> *addList = new LinkedList<int>();
 
 
   cout << "Adding a Faculty..." << endl;
@@ -618,6 +702,13 @@ void Simulation::addFaculty()
   catch (out_of_range const &e)
   {
     cout << "Error: value out of range" << endl;
+    cout << endl;
+    runProgram();
+  }
+
+  if (facultyID < 1000000 || facultyID > 9999999)
+  {
+    cout << "Invalid ID (1000000-9999999)" << endl;
     cout << endl;
     runProgram();
   }
@@ -658,13 +749,15 @@ void Simulation::addFaculty()
       }
       else // Finds student
       {
-        addList->insertFront(temp->key); // Adds the student to the list
+        addList->insertFront(temp->key->getID()); // Adds the student to the list
         break;
       }
 
       if (temp == NULL) // If the student doesn't exist
       {
         cout << "The student does not exist" << endl;
+        cout << endl;
+        break;
       }
     }
 
@@ -694,10 +787,10 @@ void Simulation::addFaculty()
     outFS << facultyID << ", " << fullName << ", "
           << facultyLevel << ", " << facultyDepartment << ", ";
 
-    ListNode<Student*> *curr = addList->getFront();
+    ListNode<int> *curr = addList->getFront();
     while (curr != NULL) // Prints list to the file
     {
-      outFS << curr->data->getID() << ", ";
+      outFS << curr->data << ", ";
 
       curr = curr->next;
     }
@@ -713,19 +806,204 @@ void Simulation::addFaculty()
 // This deletes the faculty member given the id
 void Simulation::deleteFaculty(int id)
 {
+  getFacultyTree();
 
+  Faculty *tempFaculty = new Faculty(); // Create new instance of student
+  tempFaculty->setID(id); // Set id to compare one similar
+
+  if (facultyTree->search(tempFaculty)) // The student exists
+  {
+    delete tempFaculty;
+  }
+  else // The student does not exist
+  {
+    cout << "The student does not exist" << endl;
+    cout << endl;
+    runProgram();
+  }
+
+
+  TreeNode<Faculty*> *fac = facultyTree->getRoot();
+
+  while (fac != NULL) // Iterates to check if the student exists
+  {
+    if (id < fac->key->getID()) // Goes left
+    {
+      fac = fac->left;
+    }
+    else if (id > fac->key->getID()) // Goes right
+    {
+      fac = fac->right;
+    }
+    else // Finds student
+    {
+      facultyTree->deleteNode(fac->key); // Deletes the node
+      break;
+    }
+
+    if (fac == NULL)
+    {
+      cout << "The faculty does not exist" << endl;
+      cout << endl;
+      runProgram();
+    }
+  }
+
+  cout << "The Faculty was successfully deleted" << endl;
 }
 
 // This changes the students advisor, given the student ID and the new faculty ID
 void Simulation::changeAdvisor(int studentID, int facultyID)
 {
+  getStudentTree(); // Get student tree
+  getFacultyTree(); // Get faculty tree
 
+  // First must check if the student and the faculty member exist
+  Student *tempStudent = new Student();
+  tempStudent->setID(studentID);
+
+  Faculty *tempFaculty = new Faculty();
+  tempFaculty->setID(facultyID);
+
+  if (studentTree->search(tempStudent)) // If the student is found
+  {
+    delete tempStudent; // Delete temporary object
+  }
+  else // The student is not found
+  {
+    cout << "The Student does not exist" << endl;
+    cout << endl;
+    runProgram();
+  }
+
+  if (facultyTree->search(tempFaculty)) // If the faculty member is found
+  {
+    delete tempFaculty; // Delete temporary object
+  }
+  else // The faculty is not found
+  {
+    cout << "The Faculty member does not exist" << endl;
+    cout << endl;
+    runProgram();
+  }
+
+
+  TreeNode<Student*> *temp = studentTree->getRoot();
+  Student *currStudent = NULL;
+
+  while (temp != NULL) // Iterates to check if the student exists
+  {
+    if (studentID < temp->key->getID()) // Goes left
+    {
+      temp = temp->left;
+    }
+    else if (studentID > temp->key->getID()) // Goes right
+    {
+      temp = temp->right;
+    }
+    else // Finds student
+    {
+      currStudent = temp->key; // Set the empty student object to the current node
+      currStudent->setAdvisor(facultyID); // Set the advisor ID to the inputed faculty ID
+      break;
+    }
+
+    if (temp == NULL) // If the student doesn't exist
+    {
+      cout << "The student does not exist" << endl;
+      cout << endl;
+      runProgram();
+    }
+  }
 }
 
 // Removes the student from the advisors list of students, given the student ID and faculty ID
 void Simulation::removeAdvisee(int studentID, int facultyID)
 {
+  getStudentTree(); // Get student tree
+  getFacultyTree(); // Get faculty tree
 
+  // First must check if the student and the faculty member exist
+  Student *tempStudent = new Student();
+  tempStudent->setID(studentID);
+
+  Faculty *tempFaculty = new Faculty();
+  tempFaculty->setID(facultyID);
+
+  if (studentTree->search(tempStudent)) // If the student is found
+  {
+    delete tempStudent; // Delete temporary object
+  }
+  else // The student is not found
+  {
+    cout << "The Student does not exist" << endl;
+    cout << endl;
+    runProgram();
+  }
+
+  if (facultyTree->search(tempFaculty)) // If the faculty member is found
+  {
+    delete tempFaculty; // Delete temporary object
+  }
+  else // The faculty is not found
+  {
+    cout << "The Faculty member does not exist" << endl;
+    cout << endl;
+    runProgram();
+  }
+
+
+  TreeNode<Faculty*> *temp = facultyTree->getRoot();
+  Faculty *currFaculty = NULL;
+
+  while (temp != NULL) // Iterates to check if the faculty exists
+  {
+    if (facultyID < temp->key->getID()) // Goes left
+    {
+      temp = temp->left;
+    }
+    else if (facultyID > temp->key->getID()) // Goes right
+    {
+      temp = temp->right;
+    }
+    else // Finds student
+    {
+      currFaculty = temp->key; // Set the empty faculty object to the current node
+      break;
+    }
+
+    if (temp == NULL) // If the faculty doesn't exist
+    {
+      cout << "The Faculty member does not exist" << endl;
+      cout << endl;
+      runProgram();
+    }
+  }
+
+  // I get a segmentation fault here
+  // Now must iterate through the list
+  LinkedList<int> *tempList = currFaculty->getListOfStudents();
+  ListNode<int> *node = currFaculty->getListOfStudents()->getFront();
+
+  while (node != NULL)
+  {
+    if (studentID != node->data) // If the id is not equal, go to next node
+    {
+      node = node->next;
+    }
+    else // If the student is found
+    {
+      tempList->removeAtPosition(node->data);
+      break;
+    }
+
+    if (node == NULL)
+    {
+      cout << "The student is not in the Advisors list of students" << endl;
+      cout << endl;
+      runProgram();
+    }
+  }
 }
 
 // This function will undo any task that happened previously, by 5 steps
@@ -828,6 +1106,13 @@ void Simulation::runProgram()
         runProgram();
       }
 
+      if (intInput < 1000000 || intInput > 9999999)
+      {
+        cout << "Invalid ID: Must be 1000000 - 9999999" << endl;
+        cout << endl;
+        runProgram();
+      }
+
 
       findStudent(intInput);
     }
@@ -852,6 +1137,13 @@ void Simulation::runProgram()
         cout << "Error: value out of range" << endl;
         cout << endl;
         userInput = "\0";
+        runProgram();
+      }
+
+      if (intInput < 1000000 || intInput > 9999999)
+      {
+        cout << "Invalid ID: Must be 1000000 - 9999999" << endl;
+        cout << endl;
         runProgram();
       }
 
@@ -881,6 +1173,13 @@ void Simulation::runProgram()
         runProgram();
       }
 
+      if (intInput < 1000000 || intInput > 9999999)
+      {
+        cout << "Invalid ID: Must be 1000000 - 9999999" << endl;
+        cout << endl;
+        runProgram();
+      }
+
       printAdvisor(intInput);
     }
     else if (intInput == 6) // Given faculty ID, print the facultys advisees and their info
@@ -904,6 +1203,13 @@ void Simulation::runProgram()
         cout << "Error: value out of range" << endl;
         cout << endl;
         userInput = "\0";
+        runProgram();
+      }
+
+      if (intInput < 1000000 || intInput > 9999999)
+      {
+        cout << "Invalid ID: Must be 1000000 - 9999999" << endl;
+        cout << endl;
         runProgram();
       }
 
@@ -937,6 +1243,13 @@ void Simulation::runProgram()
         runProgram();
       }
 
+      if (intInput < 1000000 || intInput > 9999999)
+      {
+        cout << "Invalid ID: Must be 1000000 - 9999999" << endl;
+        cout << endl;
+        runProgram();
+      }
+
       deleteStudent(intInput);
     }
     else if (intInput == 9) // Add a faculty to the database
@@ -964,6 +1277,13 @@ void Simulation::runProgram()
         cout << "Error: value out of range" << endl;
         cout << endl;
         userInput = "\0";
+        runProgram();
+      }
+
+      if (intInput < 1000000 || intInput > 9999999)
+      {
+        cout << "Invalid ID: Must be 1000000 - 9999999" << endl;
+        cout << endl;
         runProgram();
       }
 
@@ -998,6 +1318,13 @@ void Simulation::runProgram()
         runProgram();
       }
 
+      if (intStudent < 1000000 || intStudent > 9999999)
+      {
+        cout << "Invalid ID: Must be 1000000 - 9999999" << endl;
+        cout << endl;
+        runProgram();
+      }
+
 
 
       cout << "Faculty ID number: ";
@@ -1019,6 +1346,13 @@ void Simulation::runProgram()
         cout << "Error: value out of range" << endl;
         cout << endl;
         userInput = "\0";
+        runProgram();
+      }
+
+      if (intFaculty < 1000000 || intFaculty > 9999999)
+      {
+        cout << "Invalid ID: Must be 1000000 - 9999999" << endl;
+        cout << endl;
         runProgram();
       }
 
@@ -1054,6 +1388,13 @@ void Simulation::runProgram()
         runProgram();
       }
 
+      if (intStudent < 1000000 || intStudent > 9999999)
+      {
+        cout << "Invalid ID: Must be 1000000 - 9999999" << endl;
+        cout << endl;
+        runProgram();
+      }
+
 
 
       cout << "Faculty ID number: ";
@@ -1061,7 +1402,7 @@ void Simulation::runProgram()
 
       try
       {
-        intFaculty = stoi(userInput); // Converts a string to int
+        intFaculty = stoi(userFaculty); // Converts a string to int
       }
       catch (invalid_argument const &e)
       {
@@ -1078,6 +1419,13 @@ void Simulation::runProgram()
         runProgram();
       }
 
+      if (intFaculty < 1000000 || intFaculty > 9999999)
+      {
+        cout << "Invalid ID: Must be 1000000 - 9999999" << endl;
+        cout << endl;
+        runProgram();
+      }
+
       removeAdvisee(intStudent, intFaculty);
     }
     else if (intInput == 13) // Rollback function, to undo
@@ -1086,6 +1434,10 @@ void Simulation::runProgram()
     }
     else if (intInput == 14)
     {
+      // I use these to make the tree more balanced and output the file and so on
+      updateStudentFile();
+      updateFacultyFile();
+
       cout << "Exiting program..." << endl;
       exit(0);
     }
@@ -1097,6 +1449,107 @@ void Simulation::runProgram()
     userInput = "\0";
     intInput = 0;
   }
+}
+
+// This will delete the contents of the file, and print a preorder transversal of the
+// student tree to studentTable.txt
+void Simulation::updateStudentFile()
+{
+  getStudentTree();
+
+  ofstream outFS;
+
+  string file = getStudentFile();
+
+  outFS.open(file, ofstream::out | ofstream::trunc); // Clears data from the file
+  outFS.close();
+
+  outFS.open(file, ios::app); // This appends to the file
+
+  if (!outFS.is_open()) // Checks if file opens properly
+  {
+    cout << "ERROR: Could not open file " << file << endl;
+    exit(0);
+  }
+  else // File opens, so it prints to file
+  {
+    TreeNode<Student*> *temp = studentTree->getRoot();
+    string s = "";
+
+    outFS << studentPreOrderPrint(temp, s);
+  }
+
+  outFS.close();
+}
+
+// This will delete the contents of the file, and print a preorder transversal of the
+// faculty tree to facultyTable.txt
+void Simulation::updateFacultyFile()
+{
+  getFacultyTree();
+
+  ofstream outFS;
+
+  string file = getFacultyFile();
+
+  outFS.open(file, ofstream::out | ofstream::trunc); // Clears data from the file
+  outFS.close();
+
+  outFS.open(file, ios::app); // This appends to the file
+
+  if (!outFS.is_open()) // Checks if file opens properly
+  {
+    cout << "ERROR: Could not open file " << file << endl;
+    exit(0);
+  }
+  else // File opens, so it prints to file
+  {
+    TreeNode<Faculty*> *temp = facultyTree->getRoot();
+    string s = "";
+
+    outFS << facultyPreOrderPrint(temp, s);
+  }
+
+  outFS.close();
+}
+
+string Simulation::studentPreOrderPrint(TreeNode<Student*> *n, string &s)
+{
+  if (n != NULL)
+  {
+    s += (to_string(n->key->getID()) + ", " + n->key->getName() + ", " + n->key->getLevel() +
+      ", " + n->key->getMajor() + ", " + to_string(n->key->getGPA()) + ", " +
+      to_string(n->key->getAdvisor()) + "\n");
+
+    studentPreOrderPrint(n->left, s);
+    studentPreOrderPrint(n->right, s);
+  }
+
+  return s;
+}
+
+string Simulation::facultyPreOrderPrint(TreeNode<Faculty*> *n, string &s)
+{
+  if (n != NULL)
+  {
+    s += (to_string(n->key->getID()) + ", " + n->key->getName() +
+      ", " + n->key->getLevel() + ", " + n->key->getDepartment() +
+      ", ");
+
+    ListNode<int> *curr = n->key->getListOfStudents()->getFront();
+    while(curr != NULL) // This prints the list of advisees
+    {
+      s += to_string(curr->data) + ", ";
+      curr = curr->next;
+    };
+
+    s += "\n"; // End of the line
+
+    facultyPreOrderPrint(n->left, s);
+    facultyPreOrderPrint(n->right, s);
+  }
+
+  return s;
 }
 
 

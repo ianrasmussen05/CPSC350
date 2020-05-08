@@ -15,11 +15,11 @@ class Faculty
     string name;
     string level;
     string department;
-    LinkedList<Student*> *listOfStudents; // List of advisees
+    LinkedList<int> *listOfStudents; // List of advisees
 
   public:
     Faculty(); // Default constructor
-    Faculty(int id, string name, string level, string department, LinkedList<Student*> *listOfStudents); // Overloaded constructor
+    Faculty(int id, string name, string level, string department, LinkedList<int> *listOfStudents); // Overloaded constructor
     ~Faculty(); // Destructor
 
     // Getters
@@ -27,7 +27,7 @@ class Faculty
     string getName();
     string getLevel();
     string getDepartment();
-    LinkedList<Student*> *getListOfStudents();
+    LinkedList<int> *getListOfStudents();
 
     // Setters
     void setID(int id);

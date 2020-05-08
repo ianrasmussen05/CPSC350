@@ -30,7 +30,7 @@ class LinkedList
     void insertFront(T data); // Inserts a value in the front of the list
     int removeFront(); // Removes the front node
     int search(T value); // can return value or position of value
-    int removeAtPosition(int position);
+    int removeAtPosition(T position);
 
     unsigned int getSize(); // Returns the size
     ListNode<T> *getFront(); // Returns the front node
@@ -144,20 +144,17 @@ int LinkedList<T>::search(T value)
 
 // Remove a node at the given position
 template <typename T>
-int LinkedList<T>::removeAtPosition(int position)
+int LinkedList<T>::removeAtPosition(T position)
 {
   // error checking
-  int idx = 0;
   ListNode<T> *curr = front;
   ListNode<T> *prev = front;
 
   // now lets loop until position
-  while (idx != position)
+  while (curr->data != position)
   {
-    ++idx;
     prev = curr;
     curr = curr->next;
-    idx++;
   }
 
   // We found the position of the node to be deleted
