@@ -11,7 +11,6 @@
 using namespace std;
 
 #include "LinkedList.h"
-#include "Student.h"
 #include "Faculty.h"
 
 

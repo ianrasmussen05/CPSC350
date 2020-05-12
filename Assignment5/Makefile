@@ -34,16 +34,16 @@ Student.o: Student.cpp Student.h
 
 # To create the object file Window.o, we need the source files
 # Faculty.cpp, Faculty.h:
-Faculty.o: Faculty.cpp Faculty.h Student.cpp Student.h ListNode.h LinkedList.h
+Faculty.o: Faculty.cpp Faculty.h ListNode.h LinkedList.h
 	$(CC) $(CFLAGS) -c Faculty.cpp
 
 # To create the object file main.o, we need the source files
-# Simulation.cpp, Simulation.h, TreeNode.h, BinarySearchTree.h, ListNode.h, LinkedList.h, Student.cpp, Student.h, Faculty.cpp, and Faculty.h:
+# Simulation.cpp, Simulation.h, TreeNode.h, BinarySearchTree.h, ListNode.h, LinkedList.h, Stack.h, Student.cpp, Student.h, Faculty.cpp, and Faculty.h:
 Simulation.o: Simulation.cpp Simulation.h TreeNode.h BinarySearchTree.h ListNode.h LinkedList.h Student.cpp Student.h Faculty.cpp Faculty.h
 	$(CC) $(CFLAGS) -c Simulation.cpp
 
 # To create the object file main.o, we need the source files
-# main.cpp, TreeNode.h, BinarySearchTree.h, ListNode.h, LinkedList.h, Student.cpp, Student.h, Faculty.cpp, Faculty.h, Simulation.cpp, and Simulation.h:
+# main.cpp, TreeNode.h, BinarySearchTree.h, ListNode.h, LinkedList.h, Stack.h, Student.cpp, Student.h, Faculty.cpp, Faculty.h, Simulation.cpp, and Simulation.h:
 main.o: main.cpp TreeNode.h BinarySearchTree.h ListNode.h LinkedList.h Student.cpp Student.h Faculty.cpp Faculty.h Simulation.cpp Simulation.h
 	$(CC) $(CFLAGS) -c main.cpp
 

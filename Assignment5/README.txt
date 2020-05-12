@@ -8,8 +8,9 @@ Source Files: TreeNode.h, BinarySearchTree.h, ListNode.h, LinkedList.h, Student.
               Student.cpp, Faculty.h, Faculty.cpp, Simulation.h. Simulation.cpp, main.cpp
 
 Challenges:
-The program successfully compiles and does majority of the function. Just need to do the
-Roll Back function.
+The program successfully compiles and runs fine. I was unable to do the rollback function
+in my program does not work. Use the two text files in the directory to read and input
+new students and faculty.
 
 Resources:
 The first [1] source gave me a better understanding of binary trees and how they are used.

@@ -1,2 +1,2 @@
-5555555, Rene German, Professor, School of Engineering, 2546720, 2317200, 
+5555555, Rene German, Professor, School of Engineering, 2317200, 2546720, 
 9999999, Howdy Kyle, Lecturer, Business, 3373759, 

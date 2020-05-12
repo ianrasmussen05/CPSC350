@@ -1009,7 +1009,7 @@ void Simulation::removeAdvisee(int studentID, int facultyID)
 // This function will undo any task that happened previously, by 5 steps
 void Simulation::rollBack()
 {
-
+  cout << "This has not been done." << endl;
 }
 
 

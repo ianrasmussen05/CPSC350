@@ -43,8 +43,8 @@ class Simulation
     void updateStudentFile(); // This will update and print all the data into the student file
     void updateFacultyFile();// This will update and print all the data into the student file
 
-    string studentPreOrderPrint(TreeNode<Student*> *n, string &s);
-    string facultyPreOrderPrint(TreeNode<Faculty*> *n, string &s);
+    string studentPreOrderPrint(TreeNode<Student*> *n, string &s); // Prints back to student file
+    string facultyPreOrderPrint(TreeNode<Faculty*> *n, string &s); // Prints back to faculty file
 
     // Getters
     string getStudentFile();

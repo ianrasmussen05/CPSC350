@@ -24,7 +24,7 @@ int main(int argc, char** argv)
   sim->setStudentFile("studentTable.txt"); // Set student file name to studentTable
   sim->setFacultyFile("facultyTable.txt"); // Set faculty file name to facultyTable
 
-  sim->runProgram(); // Run entire program 
+  sim->runProgram(); // Run entire program
 
   delete sim;
 
